@@ -15,7 +15,6 @@ import org.springframework.web.client.*;
 public class NmsAccessServiceImpl implements NmsAccessService
 {
 	private final String nmsAccessServiceUri	= "http://localhost:8081/";
-	private final String coronaServiceUri		= "http://localhost:8002/";
 	private final String usersServiceUri		= nmsAccessServiceUri + "users";
 	private final String rolesServiceUri		= nmsAccessServiceUri + "roles";
 	private final String tenantsServiceUri		= nmsAccessServiceUri + "tenants";
