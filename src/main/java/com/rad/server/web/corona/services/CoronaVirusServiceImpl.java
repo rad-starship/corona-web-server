@@ -1,6 +1,8 @@
 package com.rad.server.web.corona.services;
 
 import java.util.*;
+
+import org.keycloak.OAuth2Constants;
 import org.keycloak.adapters.springsecurity.client.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
@@ -19,7 +21,10 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
 	@Autowired
 	private KeycloakRestTemplate keycloakRestTemplate;
 	
-	private boolean isToUseKeycloakRestTemplate = false;
+	private boolean isToUseKeycloakRestTemplate = true;
+
+
+
 
 	public Object getCoronaVirusData()
 	{
