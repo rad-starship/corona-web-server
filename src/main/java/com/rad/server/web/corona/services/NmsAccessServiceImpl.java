@@ -45,6 +45,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	}
 
 	public Object addRole(Object role)
+
 	{
 		return postForEntity(rolesServiceUri, role);	
 	}
@@ -74,7 +75,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	{
 		if (isToUseKeycloakRestTemplate)
 		{
-			ResponseEntity<ArrayList> response = keycloakRestTemplate.postForEntity(url, request, ArrayList.class);
+			ResponseEntity<Object> response = keycloakRestTemplate.postForEntity(url, request, Object.class);
 		    return response.getBody();
 		}
 		else

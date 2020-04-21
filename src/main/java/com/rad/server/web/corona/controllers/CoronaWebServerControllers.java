@@ -18,6 +18,10 @@ public class CoronaWebServerControllers
 	@Autowired
 	private NmsAccessService	nmsAccessService;
 
+
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/users")
 	@ResponseBody
 	public Object getUsers()
@@ -25,13 +29,15 @@ public class CoronaWebServerControllers
 		return nmsAccessService.getUsers();
 	}
 
+    @CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/users")
 	@ResponseBody
 	public Object addUser(@RequestBody Object user)
 	{
 		return nmsAccessService.addUser(user);
 	}
-	
+
+    @CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/roles")
 	@ResponseBody
 	public Object getRoles()
@@ -39,6 +45,7 @@ public class CoronaWebServerControllers
 		return nmsAccessService.getRoles();
 	}
 
+    @CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/roles")
 	@ResponseBody
 	public Object addRole(@RequestBody Object role)
