@@ -31,6 +31,13 @@ public class CoronaWebServerControllers
 	{
 		return nmsAccessService.addUser(user);
 	}
+
+	@DeleteMapping("/users/{id}")
+	@ResponseBody
+	public Object deleteUser(@PathVariable String id){
+		System.out.println("check");
+		return nmsAccessService.deleteUser(Long.parseLong(id));
+	}
 	
 	@GetMapping("/roles")
 	@ResponseBody

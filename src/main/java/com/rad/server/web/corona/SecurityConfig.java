@@ -52,6 +52,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
                 .antMatchers("/roles/*").hasRole("role")
                 .antMatchers("/tenants/*").hasRole("role")
                 .anyRequest().permitAll();
+        http.csrf().disable();
     }
 
 
@@ -76,4 +77,6 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
     public KeycloakConfigResolver KeycloakConfigResolver() {
         return new KeycloakSpringBootConfigResolver();
     }
+
+
 }
