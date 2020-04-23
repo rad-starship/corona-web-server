@@ -47,6 +47,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 
 
 	public Object addRole(Object role)
+
 	{
 		return postForEntity(rolesServiceUri, role);	
 	}
