@@ -17,6 +17,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	private final String nmsAccessServiceUri	= "http://localhost:8084/";
 	private final String usersServiceUri		= nmsAccessServiceUri + "users";
 	private final String rolesServiceUri		= nmsAccessServiceUri + "roles";
+    private final String rolesidServiceUri		= nmsAccessServiceUri + "rolesid";
 	private final String tenantsServiceUri		= nmsAccessServiceUri + "tenants";
 
 	@Autowired
@@ -62,15 +63,24 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return id;
 	}
 
+    @Override
+    public void deleteRole(long roleId) {
+        deleteBy(rolesidServiceUri,"id",String.valueOf(roleId));
 
-	@Override
+    }
+
+
+    @Override
 	public void deleteRole(String roleName) {
-		 delete(rolesServiceUri+"/{name}",roleName);
+		 deleteBy(rolesServiceUri,"name",roleName);
 	}
 
+    private void deleteBy(String url,String type, String value) {
+	    delete(url+"/{"+type+"}",type,value);
+    }
 
 
-	@SuppressWarnings("rawtypes")
+    @SuppressWarnings("rawtypes")
 	private Object getForEntity(String url)
 	{
 		if (isToUseKeycloakRestTemplate)
@@ -113,9 +123,9 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		}
 	}
 
-	private void delete(String url, String name) {
+	private void delete(String url,String type, String name) {
 		Map < String, String > params = new HashMap < String, String > ();
-		params.put("name", name);
+		params.put(type, name);
 
 		if (isToUseKeycloakRestTemplate)
 		{

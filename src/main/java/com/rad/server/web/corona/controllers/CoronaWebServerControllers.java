@@ -65,6 +65,15 @@ public class CoronaWebServerControllers
 		return response;
 	}
 
+    @DeleteMapping("/rolesid/{id}")
+    @ResponseBody
+    public Map<String, Boolean> deleteRole(@PathVariable(value = "id") long roleId){
+        nmsAccessService.deleteRole(roleId);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
+    }
+
 	@GetMapping("/tenants")
 	@ResponseBody
 	public Object getTenants()
