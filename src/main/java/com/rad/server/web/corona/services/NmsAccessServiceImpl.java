@@ -54,7 +54,14 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	{
 		return postForEntity(tenantsServiceUri, tenant);
 	}
-		
+
+	@Override
+	public void deleteRole(String roleName) {
+		 delete(rolesServiceUri+"/{name}",roleName);
+	}
+
+
+
 	@SuppressWarnings("rawtypes")
 	private Object getForEntity(String url)
 	{
@@ -82,6 +89,21 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		{
 			ResponseEntity<Object> response = new RestTemplate().postForEntity(url, request, Object.class);
 		    return response.getBody();
+		}
+	}
+
+	private void delete(String url, String name) {
+		Map < String, String > params = new HashMap < String, String > ();
+		params.put("name", name);
+
+		if (isToUseKeycloakRestTemplate)
+		{
+			keycloakRestTemplate.delete(url,params);
+
+		}
+		else
+		{
+			new RestTemplate().delete(url,params);
 		}
 	}
 }

@@ -9,4 +9,6 @@ public interface NmsAccessService
 	Object addUser(Object user);
 	Object addRole(Object role);
 	Object addTenant(Object tenant);
+
+	void deleteRole(String roleName);
 }
