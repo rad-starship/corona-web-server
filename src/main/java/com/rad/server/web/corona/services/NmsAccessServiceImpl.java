@@ -14,7 +14,7 @@ import org.springframework.web.client.*;
 @Service
 public class NmsAccessServiceImpl implements NmsAccessService
 {
-	private final String nmsAccessServiceUri	= "http://localhost:8084/";
+	private final String nmsAccessServiceUri	= "http://localhost:8081/";
 	private final String usersServiceUri		= nmsAccessServiceUri + "users";
 	private final String rolesServiceUri		= nmsAccessServiceUri + "roles";
 	private final String tenantsServiceUri		= nmsAccessServiceUri + "tenants";
@@ -44,6 +44,8 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return postForEntity(usersServiceUri, user);
 	}
 
+
+
 	public Object addRole(Object role)
 
 	{
@@ -54,6 +56,12 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	{
 		return postForEntity(tenantsServiceUri, tenant);
 	}
+
+	public Object deleteUser(long id){
+		deleteForEntity(usersServiceUri+"/"+id);
+		return id;
+	}
+
 
 	@Override
 	public void deleteRole(String roleName) {
@@ -89,6 +97,19 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		{
 			ResponseEntity<Object> response = new RestTemplate().postForEntity(url, request, Object.class);
 		    return response.getBody();
+		}
+	}
+
+
+	private void deleteForEntity(String url)
+	{
+		if (isToUseKeycloakRestTemplate)
+		{
+			keycloakRestTemplate.delete(url);
+		}
+		else
+		{
+			new RestTemplate().delete(url);
 		}
 	}
 

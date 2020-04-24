@@ -21,10 +21,6 @@ public class CoronaWebServerControllers
 	@Autowired
 	private NmsAccessService	nmsAccessService;
 
-
-
-
-    @CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/users")
 	@ResponseBody
 	public Object getUsers()
@@ -32,7 +28,6 @@ public class CoronaWebServerControllers
 		return nmsAccessService.getUsers();
 	}
 
-    @CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/users")
 	@ResponseBody
 	public Object addUser(@RequestBody Object user)
@@ -40,7 +35,13 @@ public class CoronaWebServerControllers
 		return nmsAccessService.addUser(user);
 	}
 
-    @CrossOrigin(origins = "http://localhost:4200")
+	@DeleteMapping("/users/{id}")
+	@ResponseBody
+	public Object deleteUser(@PathVariable String id){
+		System.out.println("check");
+		return nmsAccessService.deleteUser(Long.parseLong(id));
+	}
+
 	@GetMapping("/roles")
 	@ResponseBody
 	public Object getRoles()
@@ -48,7 +49,6 @@ public class CoronaWebServerControllers
 		return nmsAccessService.getRoles();
 	}
 
-    @CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/roles")
 	@ResponseBody
 	public Object addRole(@RequestBody Object role)
@@ -64,7 +64,7 @@ public class CoronaWebServerControllers
 		response.put("deleted", Boolean.TRUE);
 		return response;
 	}
-	
+
 	@GetMapping("/tenants")
 	@ResponseBody
 	public Object getTenants()
