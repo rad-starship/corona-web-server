@@ -63,6 +63,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return id;
 	}
 
+
     @Override
     public void deleteRole(long roleId) {
         deleteBy(rolesidServiceUri,"id",String.valueOf(roleId));
@@ -74,6 +75,12 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	public void deleteRole(String roleName) {
 		 deleteBy(rolesServiceUri,"name",roleName);
 	}
+
+    @Override
+    public Object updateRole(Long roleId, Object roleDetailes) {
+        return putForEntity(rolesServiceUri+"/"+roleId,roleDetailes);
+    }
+
 
     private void deleteBy(String url,String type, String value) {
 	    delete(url+"/{"+type+"}",type,value);
@@ -110,8 +117,21 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		}
 	}
 
+    private Object putForEntity(String url, Object request) {
+        if (isToUseKeycloakRestTemplate)
+        {
+            keycloakRestTemplate.put(url, request);
+            return request;
+        }
+        else
+        {
+            new RestTemplate().put(url, request);
+            return request;
+        }
+    }
 
-	private void deleteForEntity(String url)
+
+    private void deleteForEntity(String url)
 	{
 		if (isToUseKeycloakRestTemplate)
 		{

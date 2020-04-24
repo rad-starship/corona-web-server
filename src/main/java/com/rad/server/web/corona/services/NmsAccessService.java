@@ -16,4 +16,5 @@ public interface NmsAccessService
 	Object deleteUser(long id);
 
 
+    Object updateRole(Long roleId, Object roleDetailes);
 }
