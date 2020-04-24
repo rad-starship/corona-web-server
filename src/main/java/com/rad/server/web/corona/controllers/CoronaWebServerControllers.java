@@ -12,7 +12,7 @@ import java.util.Map;
  * @author raz_o
  */
 @Controller
-@CrossOrigin(origins = {"http://localhost:4200"})
+//@CrossOrigin(origins = {"http://localhost:4200"})
 public class CoronaWebServerControllers
 {
 	@Autowired
