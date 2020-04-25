@@ -8,6 +8,8 @@ import com.rad.server.web.corona.services.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.Map;
+
 /**
  * @author raz_o
  */
@@ -37,10 +39,17 @@ public class CoronaWebServerControllers
 
 	@DeleteMapping("/users/{id}")
 	@ResponseBody
-	public Object deleteUser(@PathVariable String id){
-		System.out.println("check");
-		return nmsAccessService.deleteUser(Long.parseLong(id));
+	public String deleteUser(@PathVariable(value="id") Long id){
+		nmsAccessService.deleteUser(id);
+		return "The user has been deleted.";
 	}
+
+	@PutMapping("/users/{id}")
+	@ResponseBody
+	public Object updateUser(@PathVariable(value = "id")Long id,@RequestBody Object user){
+		return nmsAccessService.updateUser(id,user);
+	}
+
 
 	@GetMapping("/roles")
 	@ResponseBody
@@ -78,6 +87,8 @@ public class CoronaWebServerControllers
 	{
 		return nmsAccessService.addTenant(tenant);
 	}
+
+
 	
 	@GetMapping("/corona")
 	@ResponseBody
