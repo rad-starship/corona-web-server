@@ -17,6 +17,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	private final String nmsAccessServiceUri	= "http://localhost:8081/";
 	private final String usersServiceUri		= nmsAccessServiceUri + "users";
 	private final String rolesServiceUri		= nmsAccessServiceUri + "roles";
+    private final String rolesidServiceUri		= nmsAccessServiceUri + "rolesid";
 	private final String tenantsServiceUri		= nmsAccessServiceUri + "tenants";
 
 	@Autowired
@@ -63,17 +64,33 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	}
 
 
-	@Override
+    @Override
+    public void deleteRole(long roleId) {
+        deleteBy(rolesidServiceUri,"id",String.valueOf(roleId));
+
+    }
+
+
+    @Override
 	public void deleteRole(String roleName) {
-		 delete(rolesServiceUri+"/{name}",roleName);
+		 deleteBy(rolesServiceUri,"name",roleName);
 	}
+
+    @Override
+    public Object updateRole(Long roleId, Object roleDetailes) {
+        return putForEntity(rolesServiceUri+"/"+roleId,roleDetailes);
+    }
 
 	public Object updateUser(Long id,Object user){
 		return deleteForEntity();
 	}
 
+    private void deleteBy(String url,String type, String value) {
+	    delete(url+"/{"+type+"}",type,value);
+    }
 
-	@SuppressWarnings("rawtypes")
+
+    @SuppressWarnings("rawtypes")
 	private Object getForEntity(String url)
 	{
 		if (isToUseKeycloakRestTemplate)
@@ -103,8 +120,21 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		}
 	}
 
+    private Object putForEntity(String url, Object request) {
+        if (isToUseKeycloakRestTemplate)
+        {
+            keycloakRestTemplate.put(url, request);
+            return request;
+        }
+        else
+        {
+            new RestTemplate().put(url, request);
+            return request;
+        }
+    }
 
-	private void deleteForEntity(String url)
+
+    private void deleteForEntity(String url)
 	{
 		if (isToUseKeycloakRestTemplate)
 		{
@@ -116,9 +146,9 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		}
 	}
 
-	private void delete(String url, String name) {
+	private void delete(String url,String type, String name) {
 		Map < String, String > params = new HashMap < String, String > ();
-		params.put("name", name);
+		params.put(type, name);
 
 		if (isToUseKeycloakRestTemplate)
 		{

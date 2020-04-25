@@ -5,6 +5,7 @@ import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import com.rad.server.web.corona.services.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,6 +66,14 @@ public class CoronaWebServerControllers
 		return nmsAccessService.addRole(role);
 	}
 
+	@PutMapping("/roles/{id}")
+	@ResponseBody
+	public Object updateRole(		@PathVariable(value = "id") Long roleId,
+									 @Valid @RequestBody Object roleDetailes){
+	return nmsAccessService.updateRole(roleId,roleDetailes);
+
+	}
+
 	@DeleteMapping("/roles/{name}")
 	@ResponseBody
 	public Map<String, Boolean> deleteRole(@PathVariable(value = "name") String roleName){
@@ -73,6 +82,15 @@ public class CoronaWebServerControllers
 		response.put("deleted", Boolean.TRUE);
 		return response;
 	}
+
+    @DeleteMapping("/rolesid/{id}")
+    @ResponseBody
+    public Map<String, Boolean> deleteRole(@PathVariable(value = "id") long roleId){
+        nmsAccessService.deleteRole(roleId);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
+    }
 
 	@GetMapping("/tenants")
 	@ResponseBody
