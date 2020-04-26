@@ -82,7 +82,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
     }
 
 	public Object updateUser(Long id,Object user){
-		return deleteForEntity();
+		return putForEntity(usersServiceUri+"/"+id,user);
 	}
 
     private void deleteBy(String url,String type, String value) {
