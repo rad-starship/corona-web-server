@@ -14,11 +14,12 @@ public interface NmsAccessService
 	void deleteRole(long roleId);
 
 	Object deleteUser(long id);
+	Object deleteTenant(long id);
 
 
     Object updateRole(Long roleId, Object roleDetailes);
-
 	Object updateUser(Long id,Object user);
+	Object updateTenant(Long id,Object tenant);
 
 
 }

@@ -106,6 +106,17 @@ public class CoronaWebServerControllers
 		return nmsAccessService.addTenant(tenant);
 	}
 
+	@DeleteMapping("/tenants/{id}")
+	@ResponseBody
+	public Object deleteTenant(@PathVariable(value = "id")long id){
+		return nmsAccessService.deleteTenant(id);
+	}
+
+	@PutMapping("/tenants/{id}")
+	@ResponseBody
+	public Object updateTenant(@PathVariable(value = "id")Long id,@RequestBody Object tenant){
+		return nmsAccessService.updateTenant(id,tenant);
+	}
 
 	
 	@GetMapping("/corona")

@@ -63,8 +63,14 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return id;
 	}
 
+	@Override
+	public Object deleteTenant(long id) {
+		deleteForEntity(tenantsServiceUri+"/"+id);
+		return id;
+	}
 
-    @Override
+
+	@Override
     public void deleteRole(long roleId) {
         deleteBy(rolesidServiceUri,"id",String.valueOf(roleId));
 
@@ -85,7 +91,12 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return putForEntity(usersServiceUri+"/"+id,user);
 	}
 
-    private void deleteBy(String url,String type, String value) {
+	@Override
+	public Object updateTenant(Long id, Object tenant) {
+		return putForEntity(tenantsServiceUri+"/"+id,tenant);
+	}
+
+	private void deleteBy(String url,String type, String value) {
 	    delete(url+"/{"+type+"}",type,value);
     }
 
