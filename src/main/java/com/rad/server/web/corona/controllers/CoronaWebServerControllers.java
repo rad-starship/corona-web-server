@@ -119,10 +119,10 @@ public class CoronaWebServerControllers
 	}
 
 	
-	@GetMapping("/corona")
+	@GetMapping("/corona/{tenant}")
 	@ResponseBody
-	public Object getCoronaData()
+	public Object getCoronaData(@PathVariable String tenant)
 	{
-		return coronaVirusService.getCoronaVirusData();
+		return coronaVirusService.getCoronaVirusData(tenant);
 	}
 }
