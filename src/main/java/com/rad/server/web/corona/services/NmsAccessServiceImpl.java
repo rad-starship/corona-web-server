@@ -1,6 +1,8 @@
 package com.rad.server.web.corona.services;
 
 import java.util.*;
+
+import com.rad.server.web.corona.responses.ErrorResponse;
 import org.keycloak.adapters.springsecurity.client.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
@@ -106,8 +108,22 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	{
 		if (isToUseKeycloakRestTemplate)
 		{
-			ResponseEntity<ArrayList> response = keycloakRestTemplate.getForEntity(url, ArrayList.class);
-			return response.getBody();
+
+			try {
+				ResponseEntity<ArrayList> response = keycloakRestTemplate.getForEntity(url, ArrayList.class);
+
+				if (response.getStatusCode().value() == 200) {
+					return response.getBody();
+				}
+			}
+			catch (HttpClientErrorException e) {
+				if (e.getStatusCode().value() == 403) {
+					return new ErrorResponse("No permission").getBody();
+				}
+
+			}
+
+			return new ErrorResponse("Unknown Error").getBody();
 		}
 		else
 		{
@@ -121,8 +137,22 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	{
 		if (isToUseKeycloakRestTemplate)
 		{
-			ResponseEntity<Object> response = keycloakRestTemplate.postForEntity(url, request, Object.class);
-		    return response.getBody();
+
+			try {
+				ResponseEntity<Object> response = keycloakRestTemplate.postForEntity(url, request, Object.class);
+
+				if (response.getStatusCode().value() == 200) {
+					return response.getBody();
+				}
+			}
+			catch (HttpClientErrorException e) {
+				if (e.getStatusCode().value() == 403) {
+					return new ErrorResponse("No permission").getBody();
+				}
+
+			}
+
+			return new ErrorResponse("Unknown Error").getBody();
 		}
 		else
 		{
