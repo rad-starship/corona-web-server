@@ -15,7 +15,7 @@ import org.springframework.web.client.*;
 @Service
 public class CoronaVirusServiceImpl implements CoronaVirusService
 {
-	private final String coronaVirusServiceUri = "http://localhost:8088/corona";
+	private final String coronaVirusServiceUri = "http://localhost:8081/corona";
     
 	@Autowired
 	private KeycloakRestTemplate keycloakRestTemplate;

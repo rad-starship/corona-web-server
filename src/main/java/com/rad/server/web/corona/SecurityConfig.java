@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,7 +37,6 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         KeycloakAuthenticationProvider keyCloakAuthProvider = keycloakAuthenticationProvider();
         keyCloakAuthProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
-
         auth.authenticationProvider(keyCloakAuthProvider);
     }
 
@@ -64,9 +64,18 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
                 .cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/users/*").hasAnyRole("role","user_read","user_write","all")
-                .antMatchers("/roles/*").hasAnyRole("role","role_read","role_write","all")
-                .antMatchers("/tenants/*").hasRole("role")
+                .antMatchers(HttpMethod.GET,"/tenants/*").permitAll()
+                .antMatchers(HttpMethod.POST,"/users/*").hasAnyRole("Admin","Region-Admin","user_write","all")
+                .antMatchers(HttpMethod.PUT,"/users/*").hasAnyRole("Admin","Region-Admin","user_write","all")
+                .antMatchers(HttpMethod.DELETE,"/users/*").hasAnyRole("Admin","Region-Admin","user_write","all")
+                .antMatchers(HttpMethod.POST,"/roles/*").hasAnyRole("Admin","Region-Admin","role_write","all")
+                .antMatchers(HttpMethod.PUT,"/roles/*").hasAnyRole("Admin","Region-Admin","role_write","all")
+                .antMatchers(HttpMethod.DELETE,"/roles/*").hasAnyRole("Admin","Region-Admin","role_write","all")
+                .antMatchers(HttpMethod.GET,"/tenants/*").hasAnyRole("Region-Admin","Admin","all")
+                .antMatchers(HttpMethod.POST,"/tenants/*").hasAnyRole("Admin","all")
+                .antMatchers(HttpMethod.PUT,"/tenants/*").hasAnyRole("Admin","all")
+                .antMatchers(HttpMethod.DELETE,"/tenants/*").hasAnyRole("Admin","all")
+                .antMatchers(HttpMethod.DELETE,"/corona/*").permitAll()
         ;
 
     }

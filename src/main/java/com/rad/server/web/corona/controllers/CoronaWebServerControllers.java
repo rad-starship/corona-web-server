@@ -40,9 +40,11 @@ public class CoronaWebServerControllers
 
 	@DeleteMapping("/users/{id}")
 	@ResponseBody
-	public String deleteUser(@PathVariable(value="id") Long id){
+	public Object deleteUser(@PathVariable(value="id") Long id){
 		nmsAccessService.deleteUser(id);
-		return "The user has been deleted.";
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted", Boolean.TRUE);
+		return response;
 	}
 
 	@PutMapping("/users/{id}")
@@ -109,7 +111,10 @@ public class CoronaWebServerControllers
 	@DeleteMapping("/tenants/{id}")
 	@ResponseBody
 	public Object deleteTenant(@PathVariable(value = "id")long id){
-		return nmsAccessService.deleteTenant(id);
+		nmsAccessService.deleteTenant(id);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted", Boolean.TRUE);
+		return response;
 	}
 
 	@PutMapping("/tenants/{id}")

@@ -16,7 +16,7 @@ import org.springframework.web.client.*;
 @Service
 public class NmsAccessServiceImpl implements NmsAccessService
 {
-	private final String nmsAccessServiceUri	= "http://localhost:8084/";
+	private final String nmsAccessServiceUri	= "http://localhost:8081/";
 	private final String usersServiceUri		= nmsAccessServiceUri + "users";
 	private final String rolesServiceUri		= nmsAccessServiceUri + "roles";
     private final String rolesidServiceUri		= nmsAccessServiceUri + "rolesid";
@@ -140,7 +140,6 @@ public class NmsAccessServiceImpl implements NmsAccessService
 
 			try {
 				ResponseEntity<Object> response = keycloakRestTemplate.postForEntity(url, request, Object.class);
-
 				if (response.getStatusCode().value() == 200) {
 					return response.getBody();
 				}
@@ -199,7 +198,6 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		else
 		{
 			new RestTemplate().delete(url,params);
-
 		}
 	}
 }
