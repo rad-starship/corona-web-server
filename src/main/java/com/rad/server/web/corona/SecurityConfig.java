@@ -68,6 +68,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
                 .antMatchers(HttpMethod.POST,"/users/*").hasAnyRole("Admin","Region-Admin","user_write","all")
                 .antMatchers(HttpMethod.PUT,"/users/*").hasAnyRole("Admin","Region-Admin","user_write","all")
                 .antMatchers(HttpMethod.DELETE,"/users/*").hasAnyRole("Admin","Region-Admin","user_write","all")
+                .antMatchers(HttpMethod.GET,"/roles/*").hasAnyRole("Admin","Region-Admin","role_read","all")
                 .antMatchers(HttpMethod.POST,"/roles/*").hasAnyRole("Admin","Region-Admin","role_write","all")
                 .antMatchers(HttpMethod.PUT,"/roles/*").hasAnyRole("Admin","Region-Admin","role_write","all")
                 .antMatchers(HttpMethod.DELETE,"/roles/*").hasAnyRole("Admin","Region-Admin","role_write","all")
