@@ -7,6 +7,7 @@ import com.rad.server.web.corona.services.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import java.util.Map;
@@ -94,6 +95,10 @@ public class CoronaWebServerControllers
         return response;
     }
 
+    @GetMapping("/permissions")
+	@ResponseBody
+	public Object getPermissions(){return  nmsAccessService.getPermissions();}
+
 	@GetMapping("/tenants")
 	@ResponseBody
 	public Object getTenants()
@@ -130,4 +135,43 @@ public class CoronaWebServerControllers
 	{
 		return coronaVirusService.getCoronaVirusData(tenant);
 	}
+
+	@GetMapping("/totalsLatest")
+	@ResponseBody
+	public Object getTotalsLatest()
+	{
+		return coronaVirusService.getTotalsLatest();
+
+	}
+
+	@GetMapping("/totalsDaily")
+	@ResponseBody
+	public Object getTotalsDaily(@RequestParam("date") String date)
+	{
+		return coronaVirusService.getTotalsDaily(date);
+
+	}
+
+
+
+	@GetMapping("/countriesLatest")
+	@ResponseBody
+	public Object getCountriesLatest()
+	{
+		return coronaVirusService.getCountriesLatest();
+
+	}
+
+
+	@GetMapping("/countryDaily")
+	@ResponseBody
+	public Object getCountryDaily(@RequestParam("date") long date, @RequestParam("countryName") String countryName)
+	{
+		return coronaVirusService.getCountryDaily(date, countryName);
+
+	}
+
+
+
+
 }

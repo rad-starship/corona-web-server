@@ -5,7 +5,8 @@ public interface NmsAccessService
 	Object getUsers();
 	Object getRoles();
 	Object getTenants();
-	
+	Object getPermissions();
+
 	Object addUser(Object user);
 	Object addRole(Object role);
 	Object addTenant(Object tenant);
@@ -20,6 +21,7 @@ public interface NmsAccessService
     Object updateRole(Long roleId, Object roleDetailes);
 	Object updateUser(Long id,Object user);
 	Object updateTenant(Long id,Object tenant);
+
 
 
 }

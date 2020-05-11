@@ -15,7 +15,12 @@ import org.springframework.web.client.*;
 @Service
 public class CoronaVirusServiceImpl implements CoronaVirusService
 {
-	private final String coronaVirusServiceUri = "http://localhost:8081/corona";
+	private final String coronaVirusServiceUri = "http://localhost:8082/corona";
+	private final String totalLatestUri = "http://localhost:8082/totalsLatest";
+	private final String totalDailyUri = "http://localhost:8082/totalsDaily";
+	private final String countryLatestUri = "http://localhost:8082/countriesLatest";
+	private final String countryDailyUri = "http://localhost:8082/countryDaily";
+
     
 	@Autowired
 	private KeycloakRestTemplate keycloakRestTemplate;
@@ -29,7 +34,27 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
 	{
 		return getForEntity(coronaVirusServiceUri+"/"+tenant);
 	}
-	
+
+	@Override
+	public Object getTotalsLatest() {
+		return getForEntity(totalLatestUri);
+	}
+
+	@Override
+	public Object getTotalsDaily(String date) {
+		return getForEntity(totalDailyUri+"/?date="+date);
+	}
+
+	@Override
+	public Object getCountriesLatest() {
+		return getForEntity(countryLatestUri);
+	}
+
+	@Override
+	public Object getCountryDaily(long date, String countryName) {
+		return getForEntity(countryDailyUri+"/?date="+String.valueOf(date)+"&countryName="+countryName);
+	}
+
 	@SuppressWarnings("rawtypes")
 	private Object getForEntity(String url)
 	{
@@ -37,7 +62,7 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
 		{
 
 		    try {
-                ResponseEntity<ArrayList> response = keycloakRestTemplate.getForEntity(url, ArrayList.class);
+                ResponseEntity<Object> response = keycloakRestTemplate.getForEntity(url, Object.class);
 
                 if (response.getStatusCode().value() == 200) {
                     return response.getBody();
@@ -49,6 +74,11 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
                 }
 
             }
+
+		    catch (Exception e){
+		    	e.printStackTrace();
+				return new ErrorResponse("Unknown Error").getBody();
+			}
 
             return new ErrorResponse("Unknown Error").getBody();
 

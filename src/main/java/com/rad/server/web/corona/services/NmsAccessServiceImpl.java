@@ -19,6 +19,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	private final String nmsAccessServiceUri	= "http://localhost:8081/";
 	private final String usersServiceUri		= nmsAccessServiceUri + "users";
 	private final String rolesServiceUri		= nmsAccessServiceUri + "roles";
+	private final String permissionsServiceUri		= nmsAccessServiceUri + "permissions";
     private final String rolesidServiceUri		= nmsAccessServiceUri + "rolesid";
 	private final String tenantsServiceUri		= nmsAccessServiceUri + "tenants";
 
@@ -40,6 +41,11 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	public Object getTenants()
 	{
 		return getForEntity(tenantsServiceUri);	
+	}
+
+	public Object getPermissions()
+	{
+		return getForEntity(permissionsServiceUri);
 	}
 
 	public Object addUser(Object user)
@@ -110,7 +116,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		{
 
 			try {
-				ResponseEntity<ArrayList> response = keycloakRestTemplate.getForEntity(url, ArrayList.class);
+				ResponseEntity<Object> response = keycloakRestTemplate.getForEntity(url, Object.class);
 
 				if (response.getStatusCode().value() == 200) {
 					return response.getBody();
