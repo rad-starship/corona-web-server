@@ -20,6 +20,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	private final String usersServiceUri		= nmsAccessServiceUri + "users";
 	private final String rolesServiceUri		= nmsAccessServiceUri + "roles";
 	private final String permissionsServiceUri		= nmsAccessServiceUri + "permissions";
+	private final String settingsServiceUri		= nmsAccessServiceUri + "settings";
     private final String rolesidServiceUri		= nmsAccessServiceUri + "rolesid";
 	private final String tenantsServiceUri		= nmsAccessServiceUri + "tenants";
 
@@ -90,6 +91,11 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		  return deleteBy(rolesServiceUri,"name",roleName);
 	}
 
+
+	private Object deleteBy(String url, String type, String value) {
+		return  delete(url+"/{"+type+"}",type,value);
+	}
+
     @Override
     public Object updateRole(Long roleId, Object roleDetailes) {
         return putForEntity(rolesServiceUri+"/"+roleId,roleDetailes);
@@ -104,10 +110,12 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return putForEntity(tenantsServiceUri+"/"+id,tenant);
 	}
 
-	private Object deleteBy(String url, String type, String value) {
-	   return  delete(url+"/{"+type+"}",type,value);
-    }
 
+
+	@Override
+    public Object postSettings(Object settings){
+		return postForEntity(settingsServiceUri,settings);
+	}
 
     @SuppressWarnings("rawtypes")
 	private Object getForEntity(String url)
@@ -145,6 +153,8 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		{
 
 			try {
+				System.out.println("Post to url: "+url);
+				System.out.println(request);
 				ResponseEntity<Object> response = keycloakRestTemplate.postForEntity(url, request, Object.class);
 				if (response.getStatusCode().value() == 200) {
 					return response.getBody();
@@ -221,4 +231,6 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		}
 		return null;
 	}
+
+
 }

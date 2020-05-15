@@ -171,6 +171,12 @@ public class CoronaWebServerControllers
 
 	}
 
+	@PostMapping("/settings")
+    @ResponseBody
+    public Object postSettings(@RequestBody Object settings){
+	    return nmsAccessService.postSettings(settings);
+    }
+
 
 
 

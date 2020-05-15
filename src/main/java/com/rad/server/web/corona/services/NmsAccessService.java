@@ -23,5 +23,5 @@ public interface NmsAccessService
 	Object updateTenant(Long id,Object tenant);
 
 
-
+    Object postSettings(Object settings);
 }
