@@ -67,27 +67,27 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	}
 
 	public Object deleteUser(long id){
-		deleteForEntity(usersServiceUri+"/"+id);
-		return id;
+		return deleteForEntity(usersServiceUri+"/"+id);
+		//return id;
 	}
 
 	@Override
 	public Object deleteTenant(long id) {
-		deleteForEntity(tenantsServiceUri+"/"+id);
-		return id;
+		return deleteForEntity(tenantsServiceUri+"/"+id);
+		//return id;
 	}
 
 
 	@Override
-    public void deleteRole(long roleId) {
-        deleteBy(rolesidServiceUri,"id",String.valueOf(roleId));
+    public Object deleteRole(long roleId) {
+        return deleteBy(rolesidServiceUri,"id",String.valueOf(roleId));
 
     }
 
 
     @Override
-	public void deleteRole(String roleName) {
-		 deleteBy(rolesServiceUri,"name",roleName);
+	public Object deleteRole(String roleName) {
+		  return deleteBy(rolesServiceUri,"name",roleName);
 	}
 
     @Override
@@ -104,8 +104,8 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return putForEntity(tenantsServiceUri+"/"+id,tenant);
 	}
 
-	private void deleteBy(String url,String type, String value) {
-	    delete(url+"/{"+type+"}",type,value);
+	private Object deleteBy(String url, String type, String value) {
+	   return  delete(url+"/{"+type+"}",type,value);
     }
 
 
@@ -180,30 +180,45 @@ public class NmsAccessServiceImpl implements NmsAccessService
     }
 
 
-    private void deleteForEntity(String url)
+    private Object deleteForEntity(String url)
 	{
 		if (isToUseKeycloakRestTemplate)
 		{
-			keycloakRestTemplate.delete(url);
+			//keycloakRestTemplate.delete(url);
+			try {
+				ResponseEntity<Object> result = keycloakRestTemplate.exchange(url, HttpMethod.DELETE, null, Object.class);
+				return result;
+			}
+
+			catch(HttpClientErrorException exception){
+				return new ResponseEntity<String>(exception.getResponseBodyAsString(),exception.getStatusCode());
+			}
 		}
 		else
 		{
 			new RestTemplate().delete(url);
 		}
+		return null;
 	}
 
-	private void delete(String url,String type, String name) {
+	private Object delete(String url, String type, String name) {
 		Map < String, String > params = new HashMap < String, String > ();
 		params.put(type, name);
 
 		if (isToUseKeycloakRestTemplate)
 		{
-			keycloakRestTemplate.delete(url,params);
-
+			try {
+				ResponseEntity<Object> result = keycloakRestTemplate.exchange(url, HttpMethod.DELETE, null, Object.class, params);
+				return result;
+			}
+			catch (HttpClientErrorException exception){
+				return new ResponseEntity<String>(exception.getResponseBodyAsString(),exception.getStatusCode());
+			}
 		}
 		else
 		{
 			new RestTemplate().delete(url,params);
 		}
+		return null;
 	}
 }

@@ -42,10 +42,10 @@ public class CoronaWebServerControllers
 	@DeleteMapping("/users/{id}")
 	@ResponseBody
 	public Object deleteUser(@PathVariable(value="id") Long id){
-		nmsAccessService.deleteUser(id);
-		Map<String, Boolean> response = new HashMap<>();
-		response.put("deleted", Boolean.TRUE);
-		return response;
+		return nmsAccessService.deleteUser(id);
+//		Map<String, Boolean> response = new HashMap<>();
+//		response.put("deleted", Boolean.TRUE);
+//		return response;
 	}
 
 	@PutMapping("/users/{id}")
@@ -79,11 +79,11 @@ public class CoronaWebServerControllers
 
 	@DeleteMapping("/roles/{name}")
 	@ResponseBody
-	public Map<String, Boolean> deleteRole(@PathVariable(value = "name") String roleName){
-    	nmsAccessService.deleteRole(roleName);
-		Map<String, Boolean> response = new HashMap<>();
-		response.put("deleted", Boolean.TRUE);
-		return response;
+	public Object deleteRole(@PathVariable(value = "name") String roleName){
+    	return nmsAccessService.deleteRole(roleName);
+//		Map<String, Boolean> response = new HashMap<>();
+//		response.put("deleted", Boolean.TRUE);
+//		return response;
 	}
 
     @DeleteMapping("/rolesid/{id}")
@@ -116,10 +116,10 @@ public class CoronaWebServerControllers
 	@DeleteMapping("/tenants/{id}")
 	@ResponseBody
 	public Object deleteTenant(@PathVariable(value = "id")long id){
-		nmsAccessService.deleteTenant(id);
-		Map<String, Boolean> response = new HashMap<>();
-		response.put("deleted", Boolean.TRUE);
-		return response;
+		return nmsAccessService.deleteTenant(id);
+//		Map<String, Boolean> response = new HashMap<>();
+//		response.put("deleted", Boolean.TRUE);
+//		return response;
 	}
 
 	@PutMapping("/tenants/{id}")
