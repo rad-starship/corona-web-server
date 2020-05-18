@@ -22,6 +22,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	private final String permissionsServiceUri		= nmsAccessServiceUri + "permissions";
 	private final String settingsServiceUri		= nmsAccessServiceUri + "settings";
     private final String rolesidServiceUri		= nmsAccessServiceUri + "rolesid";
+    private final String loginUri				= nmsAccessServiceUri + "getToken";
 	private final String tenantsServiceUri		= nmsAccessServiceUri + "tenants";
 
 	@Autowired
@@ -117,7 +118,12 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return postForEntity(settingsServiceUri,settings);
 	}
 
-    @SuppressWarnings("rawtypes")
+	@Override
+	public Object login(Object loginDetails) {
+		return noKcPostForEntity(loginUri,loginDetails);
+	}
+
+	@SuppressWarnings("rawtypes")
 	private Object getForEntity(String url)
 	{
 		if (isToUseKeycloakRestTemplate)
@@ -171,9 +177,13 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		}
 		else
 		{
-			ResponseEntity<Object> response = new RestTemplate().postForEntity(url, request, Object.class);
-		    return response.getBody();
+			return noKcPostForEntity(url, request);
 		}
+	}
+
+	private Object noKcPostForEntity(String url, Object request){
+		ResponseEntity<Object> response = new RestTemplate().postForEntity(url, request, Object.class);
+		return response.getBody();
 	}
 
     private Object putForEntity(String url, Object request) {

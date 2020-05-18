@@ -177,6 +177,12 @@ public class CoronaWebServerControllers
 	    return nmsAccessService.postSettings(settings);
     }
 
+    @PostMapping("/login")
+	@ResponseBody
+	public Object login(@RequestBody Object loginDetails){
+		return nmsAccessService.login(loginDetails);
+	}
+
 
 
 

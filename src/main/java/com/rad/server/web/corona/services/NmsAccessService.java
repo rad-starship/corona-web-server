@@ -24,4 +24,6 @@ public interface NmsAccessService
 
 
     Object postSettings(Object settings);
+
+    Object login(Object loginDetails);
 }
