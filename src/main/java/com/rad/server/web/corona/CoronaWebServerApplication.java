@@ -1,12 +1,23 @@
 package com.rad.server.web.corona;
 
 import java.net.*;
+
+import org.keycloak.KeycloakPrincipal;
+import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.context.event.*;
 import org.springframework.context.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.env.*;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 @SpringBootApplication
 public class CoronaWebServerApplication implements ApplicationListener<ApplicationReadyEvent>
@@ -38,4 +49,5 @@ public class CoronaWebServerApplication implements ApplicationListener<Applicati
 			e.printStackTrace();
 		}
 	}
+
 }

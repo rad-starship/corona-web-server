@@ -21,6 +21,7 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
 	private final String countryLatestUri = "http://localhost:8082/countriesLatest";
 	private final String countryDailyUri = "http://localhost:8082/countryDaily";
 
+
     
 	@Autowired
 	private KeycloakRestTemplate keycloakRestTemplate;

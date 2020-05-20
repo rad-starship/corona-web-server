@@ -11,4 +11,5 @@ public interface CoronaVirusService
     Object getCountriesLatest();
 
     Object getCountryDaily(long date, String countryName);
+
 }

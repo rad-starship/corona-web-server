@@ -34,6 +34,14 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	{
 		return getForEntity(usersServiceUri);	
 	}
+	public Object getUserToken()
+	{
+		return getForEntity(usersServiceUri+"/getToken");
+	}
+
+	public Object getTenantsForCorona(){
+		return getForEntity(tenantsServiceUri+"/tenantsForCorona");
+	}
 
 	public Object getRoles()
 	{

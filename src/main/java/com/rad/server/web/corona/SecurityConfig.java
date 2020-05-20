@@ -65,7 +65,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
                 .cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/tenants/*").permitAll()
+                .antMatchers(HttpMethod.GET,"/users/*").permitAll()
                 .antMatchers(HttpMethod.POST,"/users/*").hasAnyRole("Admin","Region-Admin","user_write","all")
                 .antMatchers(HttpMethod.PUT,"/users/*").hasAnyRole("Admin","Region-Admin","user_write","all")
                 .antMatchers(HttpMethod.DELETE,"/users/*").hasAnyRole("Admin","Region-Admin","user_write","all")
@@ -73,12 +73,11 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
                 .antMatchers(HttpMethod.POST,"/roles/*").hasAnyRole("Admin","Region-Admin","role_write","all")
                 .antMatchers(HttpMethod.PUT,"/roles/*").hasAnyRole("Admin","Region-Admin","role_write","all")
                 .antMatchers(HttpMethod.DELETE,"/roles/*").hasAnyRole("Admin","Region-Admin","role_write","all")
-                .antMatchers(HttpMethod.GET,"/tenants/*").hasAnyRole("Region-Admin","Admin","all")
+                .antMatchers(HttpMethod.GET,"/tenants/*").hasAnyRole("Admin","Region-Admin","tenant_read","all")
                 .antMatchers(HttpMethod.POST,"/tenants/*").hasAnyRole("Admin","all")
                 .antMatchers(HttpMethod.PUT,"/tenants/*").hasAnyRole("Admin","all")
                 .antMatchers(HttpMethod.DELETE,"/tenants/*").hasAnyRole("Admin","all")
-                .antMatchers(HttpMethod.DELETE,"/corona/*").permitAll()
-        ;
+                .antMatchers(HttpMethod.GET,"/corona/*").permitAll();
 
     }
 
@@ -103,6 +102,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
     public KeycloakRestTemplate keycloakRestTemplate() {
         return new KeycloakRestTemplate(keycloakClientRequestFactory);
     }
+
 
 
     @Bean

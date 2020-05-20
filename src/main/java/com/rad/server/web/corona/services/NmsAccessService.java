@@ -3,10 +3,11 @@ package com.rad.server.web.corona.services;
 public interface NmsAccessService
 {
 	Object getUsers();
+	Object getUserToken();
 	Object getRoles();
 	Object getTenants();
 	Object getPermissions();
-
+	Object getTenantsForCorona();
 	Object addUser(Object user);
 	Object addRole(Object role);
 	Object addTenant(Object tenant);

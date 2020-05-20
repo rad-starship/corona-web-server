@@ -1,14 +1,13 @@
 package com.rad.server.web.corona.controllers;
 
+import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import com.rad.server.web.corona.services.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import java.util.Map;
 
@@ -25,11 +24,19 @@ public class CoronaWebServerControllers
 	@Autowired
 	private NmsAccessService	nmsAccessService;
 
+
 	@GetMapping("/users")
 	@ResponseBody
 	public Object getUsers()
 	{
 		return nmsAccessService.getUsers();
+	}
+
+	@GetMapping("/users/getToken")
+	@ResponseBody
+	public Object getUserToken()
+	{
+		return nmsAccessService.getUserToken();
 	}
 
 	@PostMapping("/users")
@@ -142,6 +149,13 @@ public class CoronaWebServerControllers
 	{
 		return coronaVirusService.getTotalsLatest();
 
+	}
+
+	@GetMapping("/tenants/tenantsForCorona")
+	@ResponseBody
+	public Object getTenantsForCorona()
+	{
+		return nmsAccessService.getTenantsForCorona();
 	}
 
 	@GetMapping("/totalsDaily")
