@@ -16,7 +16,7 @@ import org.springframework.web.client.*;
 @Service
 public class NmsAccessServiceImpl implements NmsAccessService
 {
-	private final String nmsAccessServiceUri	= "http://localhost:8084/";
+	private final String nmsAccessServiceUri	= "http://localhost:8081/";
 	private final String usersServiceUri		= nmsAccessServiceUri + "users";
 	private final String rolesServiceUri		= nmsAccessServiceUri + "roles";
 	private final String permissionsServiceUri		= nmsAccessServiceUri + "permissions";
@@ -30,104 +30,108 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	
 	private boolean isToUseKeycloakRestTemplate = true;
 
-	public Object getUsers()
+	public Object getUsers(HttpHeaders headers)
 	{
-		return getForEntity(usersServiceUri);	
-	}
-	public Object getUserToken()
-	{
-		return getForEntity(usersServiceUri+"/getToken");
+		return getForEntity(usersServiceUri,headers);
 	}
 
-	public Object getTenantsForCorona(){
+
+	public Object getUserToken(HttpHeaders headers)
+	{
+		return getForEntity(usersServiceUri+"/getToken",headers);
+	}
+
+	public Object getTenantsForCorona(HttpHeaders headers){
 		return getForEntity(tenantsServiceUri+"/tenantsForCorona");
 	}
 
-	public Object getRoles()
+	public Object getRoles(HttpHeaders headers)
 	{
-		return getForEntity(rolesServiceUri);	
+		return getForEntity(rolesServiceUri,headers);
 	}
 
-	public Object getTenants()
+	public Object getTenants(HttpHeaders headers)
 	{
-		return getForEntity(tenantsServiceUri);	
+		return getForEntity(tenantsServiceUri,headers);
 	}
 
-	public Object getPermissions()
+	public Object getPermissions(HttpHeaders headers)
 	{
-		return getForEntity(permissionsServiceUri);
+		return getForEntity(permissionsServiceUri,headers);
 	}
 
-	public Object addUser(Object user)
+	public Object addUser(Object user, HttpHeaders headers)
 	{
-		return postForEntity(usersServiceUri, user);
+		return postForEntity(usersServiceUri, user,headers);
 	}
 
 
 
-	public Object addRole(Object role)
+	public Object addRole(Object role, HttpHeaders headers)
 
 	{
-		return postForEntity(rolesServiceUri, role);	
+		return postForEntity(rolesServiceUri, role,headers);
 	}
 
-	public Object addTenant(Object tenant)
+	public Object addTenant(Object tenant, HttpHeaders headers)
 	{
-		return postForEntity(tenantsServiceUri, tenant);
+		return postForEntity(tenantsServiceUri, tenant,headers);
 	}
 
-	public Object deleteUser(long id){
-		return deleteForEntity(usersServiceUri+"/"+id);
+	public Object deleteUser(long id, HttpHeaders headers){
+		return deleteForEntity(usersServiceUri+"/"+id,headers);
 		//return id;
 	}
 
 	@Override
-	public Object deleteTenant(long id) {
-		return deleteForEntity(tenantsServiceUri+"/"+id);
+	public Object deleteTenant(long id, HttpHeaders headers) {
+		return deleteForEntity(tenantsServiceUri+"/"+id,headers);
 		//return id;
 	}
 
 
 	@Override
-    public Object deleteRole(long roleId) {
-        return deleteBy(rolesidServiceUri,"id",String.valueOf(roleId));
+    public Object deleteRole(long roleId, HttpHeaders headers) {
+        return deleteBy(rolesidServiceUri,"id",String.valueOf(roleId),headers);
 
     }
 
 
     @Override
-	public Object deleteRole(String roleName) {
-		  return deleteBy(rolesServiceUri,"name",roleName);
+	public Object deleteRole(String roleName, HttpHeaders headers)
+	{
+		  return deleteBy(rolesServiceUri,"name",roleName,headers);
 	}
 
 
-	private Object deleteBy(String url, String type, String value) {
-		return  delete(url+"/{"+type+"}",type,value);
+	private Object deleteBy(String url, String type, String value,HttpHeaders headers) {
+		return  delete(url+"/{"+type+"}",type,value,headers);
 	}
 
     @Override
-    public Object updateRole(Long roleId, Object roleDetailes) {
-        return putForEntity(rolesServiceUri+"/"+roleId,roleDetailes);
+    public Object updateRole(Long roleId, Object roleDetailes, HttpHeaders headers) {
+        return putForEntity(rolesServiceUri+"/"+roleId,roleDetailes,headers);
     }
 
-	public Object updateUser(Long id,Object user){
-		return putForEntity(usersServiceUri+"/"+id,user);
+	public Object updateUser(Long id, Object user, HttpHeaders headers){
+		return putForEntity(usersServiceUri+"/"+id,user,headers);
 	}
 
 	@Override
-	public Object updateTenant(Long id, Object tenant) {
-		return putForEntity(tenantsServiceUri+"/"+id,tenant);
+	public Object updateTenant(Long id, Object tenant, HttpHeaders headers) {
+		return putForEntity(tenantsServiceUri+"/"+id,tenant,headers);
 	}
 
 
 
 	@Override
-    public Object postSettings(Object settings){
-		return postForEntity(settingsServiceUri,settings);
+    public Object postSettings(Object settings, HttpHeaders headers){
+		return postForEntity(settingsServiceUri,settings,headers);
 	}
 
 	@Override
 	public Object login(Object loginDetails) {
+
 		return noKcPostForEntity(loginUri,loginDetails);
 	}
 
@@ -159,7 +163,15 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		    return response.getBody();
 		}
 	}
-	
+
+	private Object getForEntity(String url, HttpHeaders headers) {
+		HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
+		ResponseEntity<Object> response = new RestTemplate().exchange(url,HttpMethod.GET,requestUpdate, Object.class);
+		return response.getBody();
+	}
+
+
+
 	@SuppressWarnings("rawtypes")
 	private Object postForEntity(String url, Object request)  
 	{
@@ -189,6 +201,13 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		}
 	}
 
+	private Object postForEntity(String url,Object request, HttpHeaders headers) {
+		HttpEntity<Object> requestUpdate = new HttpEntity<>(request,headers);
+		ResponseEntity<Object> response = new RestTemplate().exchange(url,HttpMethod.POST,requestUpdate, Object.class);
+		return response.getBody();
+	}
+
+
 	private Object noKcPostForEntity(String url, Object request){
 		ResponseEntity<Object> response = new RestTemplate().postForEntity(url, request, Object.class);
 		return response.getBody();
@@ -206,6 +225,12 @@ public class NmsAccessServiceImpl implements NmsAccessService
             return request;
         }
     }
+
+	private Object putForEntity(String url,Object request, HttpHeaders headers) {
+		HttpEntity<Object> requestUpdate = new HttpEntity<>(request,headers);
+		ResponseEntity<Object> response = new RestTemplate().exchange(url,HttpMethod.PUT,requestUpdate, Object.class);
+		return response.getBody();
+	}
 
 
     private Object deleteForEntity(String url)
@@ -229,6 +254,12 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return null;
 	}
 
+	private Object deleteForEntity(String url,HttpHeaders headers)
+	{
+		HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
+		ResponseEntity<Object> response = new RestTemplate().exchange(url,HttpMethod.DELETE,requestUpdate, Object.class);
+		return response.getBody();
+	}
 	private Object delete(String url, String type, String name) {
 		Map < String, String > params = new HashMap < String, String > ();
 		params.put(type, name);
@@ -250,5 +281,14 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return null;
 	}
 
+	private Object delete(String url,String type,String name,HttpHeaders headers)
+	{
+		Map < String, String > params = new HashMap < String, String > ();
+		params.put(type, name);
+
+		HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
+		ResponseEntity<Object> response = new RestTemplate().exchange(url,HttpMethod.DELETE,requestUpdate, Object.class,params);
+		return response.getBody();
+	}
 
 }

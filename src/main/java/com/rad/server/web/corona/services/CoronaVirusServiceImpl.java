@@ -31,28 +31,28 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
 
 
 
-	public Object getCoronaVirusData(String tenant)
+	public Object getCoronaVirusData(String tenant, HttpHeaders headers)
 	{
 		return getForEntity(coronaVirusServiceUri+"/"+tenant);
 	}
 
 	@Override
-	public Object getTotalsLatest() {
+	public Object getTotalsLatest(HttpHeaders headers) {
 		return getForEntity(totalLatestUri);
 	}
 
 	@Override
-	public Object getTotalsDaily(String date) {
+	public Object getTotalsDaily(String date, HttpHeaders headers) {
 		return getForEntity(totalDailyUri+"/?date="+date);
 	}
 
 	@Override
-	public Object getCountriesLatest() {
+	public Object getCountriesLatest(HttpHeaders headers) {
 		return getForEntity(countryLatestUri);
 	}
 
 	@Override
-	public Object getCountryDaily(long date, String countryName) {
+	public Object getCountryDaily(long date, String countryName, HttpHeaders headers) {
 		return getForEntity(countryDailyUri+"/?date="+String.valueOf(date)+"&countryName="+countryName);
 	}
 
@@ -90,5 +90,12 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
 		    return response.getBody();
 		}
 	}
+
+	private Object getForEntity(String url, HttpHeaders headers) {
+		HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
+		ResponseEntity<Object> response = new RestTemplate().exchange(url,HttpMethod.GET,requestUpdate, Object.class);
+		return response.getBody();
+	}
+
 }
 

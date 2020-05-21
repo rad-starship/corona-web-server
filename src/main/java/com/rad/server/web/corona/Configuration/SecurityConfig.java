@@ -1,8 +1,6 @@
-package com.rad.server.web.corona;
+package com.rad.server.web.corona.Configuration;
 
 import org.keycloak.adapters.KeycloakConfigResolver;
-import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
-import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.client.KeycloakClientRequestFactory;
@@ -21,9 +19,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
-import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
-import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
 @Configuration
@@ -64,20 +60,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
                 .and()
                 .cors()
                 .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/users/*").permitAll()
-                .antMatchers(HttpMethod.POST,"/users/*").hasAnyRole("Admin","Region-Admin","user_write","all")
-                .antMatchers(HttpMethod.PUT,"/users/*").hasAnyRole("Admin","Region-Admin","user_write","all")
-                .antMatchers(HttpMethod.DELETE,"/users/*").hasAnyRole("Admin","Region-Admin","user_write","all")
-                .antMatchers(HttpMethod.GET,"/roles/*").hasAnyRole("Admin","Region-Admin","role_read","all")
-                .antMatchers(HttpMethod.POST,"/roles/*").hasAnyRole("Admin","Region-Admin","role_write","all")
-                .antMatchers(HttpMethod.PUT,"/roles/*").hasAnyRole("Admin","Region-Admin","role_write","all")
-                .antMatchers(HttpMethod.DELETE,"/roles/*").hasAnyRole("Admin","Region-Admin","role_write","all")
-                .antMatchers(HttpMethod.GET,"/tenants/*").hasAnyRole("Admin","Region-Admin","tenant_read","all")
-                .antMatchers(HttpMethod.POST,"/tenants/*").hasAnyRole("Admin","all")
-                .antMatchers(HttpMethod.PUT,"/tenants/*").hasAnyRole("Admin","all")
-                .antMatchers(HttpMethod.DELETE,"/tenants/*").hasAnyRole("Admin","all")
-                .antMatchers(HttpMethod.GET,"/corona/*").permitAll();
+                .authorizeRequests();
 
     }
 

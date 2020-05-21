@@ -1,15 +1,17 @@
 package com.rad.server.web.corona.services;
 
+import org.springframework.http.HttpHeaders;
+
 public interface CoronaVirusService
 {
-	Object getCoronaVirusData(String tenant);
+	Object getCoronaVirusData(String tenant, HttpHeaders headers);
 
-    Object getTotalsLatest();
+    Object getTotalsLatest(HttpHeaders headers);
 
-    Object getTotalsDaily(String date);
+    Object getTotalsDaily(String date, HttpHeaders headers);
 
-    Object getCountriesLatest();
+    Object getCountriesLatest(HttpHeaders headers);
 
-    Object getCountryDaily(long date, String countryName);
+    Object getCountryDaily(long date, String countryName, HttpHeaders headers);
 
 }

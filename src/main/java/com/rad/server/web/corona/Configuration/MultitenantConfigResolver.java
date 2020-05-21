@@ -1,8 +1,7 @@
-package com.rad.server.web.corona;
+package com.rad.server.web.corona.Configuration;
 
 import org.keycloak.adapters.KeycloakConfigResolver;
 
-import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.keycloak.adapters.KeycloakDeployment;
@@ -23,7 +22,7 @@ public class MultitenantConfigResolver implements KeycloakConfigResolver {
     public KeycloakDeployment resolve(OIDCHttpFacade.Request request) {
         String realm = request.getHeader("realm");
         if(realm==null){
-            realm = "admin";//defualtive value for none value (login request)
+            realm = "Admin";//default value for none value (login request)
         }
         KeycloakDeployment deployment = cache.get(realm);
         if (null == deployment) {

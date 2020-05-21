@@ -1,5 +1,5 @@
 package com.rad.server.web.corona.adapters;
-import com.rad.server.web.corona.MultitenantConfigResolver;
+import com.rad.server.web.corona.Configuration.MultitenantConfigResolver;
 import org.apache.tomcat.util.descriptor.web.LoginConfig;
 import org.keycloak.adapters.springboot.KeycloakAutoConfiguration;
 import org.apache.catalina.Context;
