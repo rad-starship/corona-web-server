@@ -24,11 +24,15 @@ public class CoronaWebServerControllers
 	@Autowired
 	private NmsAccessService	nmsAccessService;
 
+	@Autowired
+	private AccessToken accessToken;
+
 
 	@GetMapping("/users")
 	@ResponseBody
 	public Object getUsers()
 	{
+		System.out.println(accessToken.getPreferredUsername());
 		return nmsAccessService.getUsers();
 	}
 
