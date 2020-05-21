@@ -25,6 +25,9 @@ public class CoronaWebServerControllers
 	@Autowired
 	private NmsAccessService	nmsAccessService;
 
+	@Autowired
+	private AccessToken accessToken;
+
 
 	@GetMapping("/users")
 	@ResponseBody
