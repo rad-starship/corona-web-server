@@ -105,8 +105,12 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
 
 
 
+    /**
+     * Sets keycloaks config resolver to use springs application.properties instead of keycloak.json (which is standard)
+     * @return
+     */
     @Bean
     public KeycloakConfigResolver KeycloakConfigResolver() {
-        return new KeycloakSpringBootConfigResolver();
+        return new MultitenantConfigResolver();
     }
 }

@@ -2,6 +2,7 @@ package com.rad.server.web.corona;
 
 import java.net.*;
 
+import com.rad.server.web.corona.adapters.MultitenantConfiguration;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.*;
@@ -20,6 +21,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 @SpringBootApplication
+@ImportAutoConfiguration(MultitenantConfiguration.class)
 public class CoronaWebServerApplication implements ApplicationListener<ApplicationReadyEvent>
 {
     @Autowired
