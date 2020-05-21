@@ -10,6 +10,7 @@ import org.keycloak.adapters.KeycloakDeploymentBuilder;
 import org.keycloak.adapters.OIDCHttpFacade;
 import org.keycloak.representations.adapters.config.AdapterConfig;
 
+//REFERENCE : https://github.com/vimalKeshu/movie-app
 public class MultitenantConfigResolver implements KeycloakConfigResolver {
 
     private final Map<String, KeycloakDeployment> cache = new ConcurrentHashMap<String, KeycloakDeployment>();

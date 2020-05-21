@@ -21,6 +21,7 @@ import java.util.Set;
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(KeycloakSpringBootProperties.class)
 public class MultitenantConfiguration extends KeycloakAutoConfiguration {
+    //REFERENCE: https://github.com/vimalKeshu/movie-app
     private KeycloakSpringBootProperties m_keycloakProperties;
 
     @Autowired
