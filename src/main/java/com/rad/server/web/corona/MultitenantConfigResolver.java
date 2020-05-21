@@ -14,20 +14,25 @@ import org.keycloak.representations.adapters.config.AdapterConfig;
 public class MultitenantConfigResolver implements KeycloakConfigResolver {
 
     private final Map<String, KeycloakDeployment> cache = new ConcurrentHashMap<String, KeycloakDeployment>();
+    private final String authServerUrl = "http://localhost:8080/auth";
+    private final String resource = "corona-server";
+
     private static AdapterConfig adapterConfig;
 
     @Override
     public KeycloakDeployment resolve(OIDCHttpFacade.Request request) {
         String realm = request.getHeader("realm");
-
+        if(realm==null){
+            realm = "admin";//defualtive value for none value (login request)
+        }
         KeycloakDeployment deployment = cache.get(realm);
         if (null == deployment) {
             // not found on the simple cache, try to load it from the file system
-            InputStream is = getClass().getResourceAsStream("/" + realm + "-keycloak.json");
-            if (is == null) {
-                throw new IllegalStateException("Not able to find the file /" + realm + "-keycloak.json");
-            }
-            deployment = KeycloakDeploymentBuilder.build(is);
+        AdapterConfig adapterConfig = new AdapterConfig();
+        adapterConfig.setRealm(realm);
+        adapterConfig.setAuthServerUrl(authServerUrl);
+        adapterConfig.setResource(resource);
+            deployment = KeycloakDeploymentBuilder.build(adapterConfig);
             cache.put(realm, deployment);
         }
 
