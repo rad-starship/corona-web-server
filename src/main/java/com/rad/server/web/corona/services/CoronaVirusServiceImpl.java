@@ -38,7 +38,7 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
 
 	@Override
 	public Object getTotalsLatest(HttpHeaders headers) {
-		return getForEntity(totalLatestUri);
+		return getForEntity(totalLatestUri,headers);
 	}
 
 	@Override

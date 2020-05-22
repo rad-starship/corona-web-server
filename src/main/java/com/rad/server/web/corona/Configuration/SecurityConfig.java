@@ -92,16 +92,6 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
         return new KeycloakRestTemplate(keycloakClientRequestFactory);
     }
 
-    @Bean
-    @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public AccessToken getKeycloakSecurityContext() {
-        HttpServletRequest request =
-                ((ServletRequestAttributes) RequestContextHolder
-                        .currentRequestAttributes()).getRequest();
-        KeycloakAuthenticationToken principal = (KeycloakAuthenticationToken) request.getUserPrincipal();
-        return  ((KeycloakAuthenticationToken) request.getUserPrincipal()).getAccount().getKeycloakSecurityContext().getToken();
-    }
-
     /**
      * Sets keycloaks config resolver to use springs application.properties instead of keycloak.json (which is standard)
      * @return
