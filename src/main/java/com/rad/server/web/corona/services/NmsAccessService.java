@@ -29,4 +29,6 @@ public interface NmsAccessService
     Object postSettings(Object settings, HttpHeaders headers);
 
     Object login(Object loginDetails);
+
+    Object logout(Object refreshToken, HttpHeaders headers);
 }

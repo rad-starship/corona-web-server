@@ -23,6 +23,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	private final String settingsServiceUri		= nmsAccessServiceUri + "settings";
     private final String rolesidServiceUri		= nmsAccessServiceUri + "rolesid";
     private final String loginUri				= nmsAccessServiceUri + "getToken";
+	private final String logioutUri				= nmsAccessServiceUri + "logout";
 	private final String tenantsServiceUri		= nmsAccessServiceUri + "tenants";
 
 	@Autowired
@@ -133,6 +134,11 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	public Object login(Object loginDetails) {
 
 		return noKcPostForEntity(loginUri,loginDetails);
+	}
+
+	@Override
+	public Object logout(Object refreshToken, HttpHeaders headers) {
+		return postForEntity(logioutUri,refreshToken,headers);
 	}
 
 	@SuppressWarnings("rawtypes")

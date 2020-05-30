@@ -198,6 +198,9 @@ public class CoronaWebServerControllers
 		return nmsAccessService.login(loginDetails);
 	}
 
+	@PostMapping("/logout")
+	@ResponseBody
+	public Object logout(@RequestHeader HttpHeaders headers, @RequestBody Object refreshToken) { return  nmsAccessService.logout(refreshToken,headers);}
 
 
 
