@@ -43,7 +43,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	}
 
 	public Object getTenantsForCorona(HttpHeaders headers){
-		return getForEntity(tenantsServiceUri+"/tenantsForCorona");
+		return getForEntity(tenantsServiceUri+"/tenantsForCorona",headers);
 	}
 
 	public Object getRoles(HttpHeaders headers)
@@ -155,10 +155,8 @@ public class NmsAccessServiceImpl implements NmsAccessService
 				}
 			}
 			catch (HttpClientErrorException e) {
-				if (e.getStatusCode().value() == 403) {
-					return new ErrorResponse("No permission").getBody();
-				}
 
+				return new ResponseEntity<Object>(e.getResponseBodyAsString(),e.getStatusCode());
 			}
 
 			return new ErrorResponse("Unknown Error").getBody();
@@ -171,10 +169,18 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	}
 
 	private Object getForEntity(String url, HttpHeaders headers) {
-		HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
-		ResponseEntity<Object> response = new RestTemplate().exchange(url,HttpMethod.GET,requestUpdate, Object.class);
-		return response.getBody();
+		try {
+			HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
+			ResponseEntity<Object> response = new RestTemplate().exchange(url, HttpMethod.GET, requestUpdate, Object.class);
+			return response.getBody();
+		}
+		catch (HttpClientErrorException e) {
+
+			return new ResponseEntity<Object>(e.getResponseBodyAsString(),e.getStatusCode());
+		}
+
 	}
+
 
 
 
@@ -193,10 +199,8 @@ public class NmsAccessServiceImpl implements NmsAccessService
 				}
 			}
 			catch (HttpClientErrorException e) {
-				if (e.getStatusCode().value() == 403) {
-					return new ErrorResponse("No permission").getBody();
-				}
 
+				return ErrorResponse.buildErrorResponse(e);
 			}
 
 			return new ErrorResponse("Unknown Error").getBody();
@@ -208,18 +212,38 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	}
 
 	private Object postForEntity(String url,Object request, HttpHeaders headers) {
-		HttpEntity<Object> requestUpdate = new HttpEntity<>(request,headers);
-		ResponseEntity<Object> response = new RestTemplate().exchange(url,HttpMethod.POST,requestUpdate, Object.class);
-		return response.getBody();
+		try {
+			HttpEntity<Object> requestUpdate = new HttpEntity<>(request, headers);
+			ResponseEntity<Object> response = new RestTemplate().exchange(url, HttpMethod.POST, requestUpdate, Object.class);
+			return response.getBody();
+		}
+		catch (HttpClientErrorException e) {
+
+			return ErrorResponse.buildErrorResponse(e);
+		}
+
+
+
 	}
 
 
 	private Object noKcPostForEntity(String url, Object request){
-		ResponseEntity<Object> response = new RestTemplate().postForEntity(url, request, Object.class);
-		return response.getBody();
+		try {
+			ResponseEntity<Object> response = new RestTemplate().postForEntity(url, request, Object.class);
+			return response.getBody();
+		}
+		catch (HttpClientErrorException e) {
+
+			return ErrorResponse.buildErrorResponse(e);
+		}
+
+
+
 	}
 
-    private Object putForEntity(String url, Object request) {
+
+
+	private Object putForEntity(String url, Object request) {
         if (isToUseKeycloakRestTemplate)
         {
             keycloakRestTemplate.put(url, request);
@@ -233,9 +257,15 @@ public class NmsAccessServiceImpl implements NmsAccessService
     }
 
 	private Object putForEntity(String url,Object request, HttpHeaders headers) {
-		HttpEntity<Object> requestUpdate = new HttpEntity<>(request,headers);
-		ResponseEntity<Object> response = new RestTemplate().exchange(url,HttpMethod.PUT,requestUpdate, Object.class);
-		return response.getBody();
+		try {
+			HttpEntity<Object> requestUpdate = new HttpEntity<>(request, headers);
+			ResponseEntity<Object> response = new RestTemplate().exchange(url, HttpMethod.PUT, requestUpdate, Object.class);
+			return response.getBody();
+		}
+		catch (HttpClientErrorException e) {
+
+			return ErrorResponse.buildErrorResponse(e);
+		}
 	}
 
 
@@ -249,8 +279,8 @@ public class NmsAccessServiceImpl implements NmsAccessService
 				return result;
 			}
 
-			catch(HttpClientErrorException exception){
-				return new ResponseEntity<String>(exception.getResponseBodyAsString(),exception.getStatusCode());
+			catch(HttpClientErrorException e){
+				return ErrorResponse.buildErrorResponse(e);
 			}
 		}
 		else
@@ -262,9 +292,14 @@ public class NmsAccessServiceImpl implements NmsAccessService
 
 	private Object deleteForEntity(String url,HttpHeaders headers)
 	{
-		HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
-		ResponseEntity<Object> response = new RestTemplate().exchange(url,HttpMethod.DELETE,requestUpdate, Object.class);
-		return response.getBody();
+		try {
+			HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
+			ResponseEntity<Object> response = new RestTemplate().exchange(url, HttpMethod.DELETE, requestUpdate, Object.class);
+			return response.getBody();
+		}
+		catch (HttpClientErrorException e) {
+			return ErrorResponse.buildErrorResponse(e);
+		}
 	}
 	private Object delete(String url, String type, String name) {
 		Map < String, String > params = new HashMap < String, String > ();
@@ -277,7 +312,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 				return result;
 			}
 			catch (HttpClientErrorException exception){
-				return new ResponseEntity<String>(exception.getResponseBodyAsString(),exception.getStatusCode());
+				return ErrorResponse.buildErrorResponse(exception);
 			}
 		}
 		else
@@ -287,14 +322,17 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return null;
 	}
 
-	private Object delete(String url,String type,String name,HttpHeaders headers)
-	{
-		Map < String, String > params = new HashMap < String, String > ();
+	private Object delete(String url,String type,String name,HttpHeaders headers) {
+		Map<String, String> params = new HashMap<String, String>();
 		params.put(type, name);
+		try {
+			HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
+			ResponseEntity<Object> response = new RestTemplate().exchange(url, HttpMethod.DELETE, requestUpdate, Object.class, params);
+			return response.getBody();
+		} catch (HttpClientErrorException e) {
 
-		HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
-		ResponseEntity<Object> response = new RestTemplate().exchange(url,HttpMethod.DELETE,requestUpdate, Object.class,params);
-		return response.getBody();
+			return ErrorResponse.buildErrorResponse(e);
+		}
 	}
 
 }
