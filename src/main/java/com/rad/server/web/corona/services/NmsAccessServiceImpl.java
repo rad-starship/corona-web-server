@@ -93,7 +93,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 
 	@Override
     public Object deleteRole(long roleId, HttpHeaders headers) {
-        return deleteBy(rolesidServiceUri,"id",String.valueOf(roleId),headers);
+        return deleteForEntity(rolesidServiceUri+"/"+roleId,headers);
 
     }
 
@@ -101,13 +101,10 @@ public class NmsAccessServiceImpl implements NmsAccessService
     @Override
 	public Object deleteRole(String roleName, HttpHeaders headers)
 	{
-		  return deleteBy(rolesServiceUri,"name",roleName,headers);
+		  return deleteForEntity(rolesServiceUri+"/"+roleName,headers);
 	}
 
 
-	private Object deleteBy(String url, String type, String value,HttpHeaders headers) {
-		return  delete(url+"/{"+type+"}",type,value,headers);
-	}
 
     @Override
     public Object updateRole(Long roleId, Object roleDetailes, HttpHeaders headers) {
@@ -295,44 +292,12 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		try {
 			HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
 			ResponseEntity<Object> response = new RestTemplate().exchange(url, HttpMethod.DELETE, requestUpdate, Object.class);
-			return response.getBody();
+			return response;
 		}
 		catch (HttpClientErrorException e) {
 			return ErrorResponse.buildErrorResponse(e);
 		}
 	}
-	private Object delete(String url, String type, String name) {
-		Map < String, String > params = new HashMap < String, String > ();
-		params.put(type, name);
 
-		if (isToUseKeycloakRestTemplate)
-		{
-			try {
-				ResponseEntity<Object> result = keycloakRestTemplate.exchange(url, HttpMethod.DELETE, null, Object.class, params);
-				return result;
-			}
-			catch (HttpClientErrorException exception){
-				return ErrorResponse.buildErrorResponse(exception);
-			}
-		}
-		else
-		{
-			new RestTemplate().delete(url,params);
-		}
-		return null;
-	}
-
-	private Object delete(String url,String type,String name,HttpHeaders headers) {
-		Map<String, String> params = new HashMap<String, String>();
-		params.put(type, name);
-		try {
-			HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
-			ResponseEntity<Object> response = new RestTemplate().exchange(url, HttpMethod.DELETE, requestUpdate, Object.class, params);
-			return response.getBody();
-		} catch (HttpClientErrorException e) {
-
-			return ErrorResponse.buildErrorResponse(e);
-		}
-	}
 
 }

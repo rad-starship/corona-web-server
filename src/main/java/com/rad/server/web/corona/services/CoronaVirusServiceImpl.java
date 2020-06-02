@@ -70,11 +70,10 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
                 }
             }
 		    catch (HttpClientErrorException e) {
-                if (e.getStatusCode().value() == 403) {
-                    return new ErrorResponse("No permission to corona_read").getBody();
+                return ErrorResponse.buildErrorResponse(e);
                 }
 
-            }
+
 
 		    catch (Exception e){
 		    	e.printStackTrace();
@@ -92,9 +91,14 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
 	}
 
 	private Object getForEntity(String url, HttpHeaders headers) {
-		HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
-		ResponseEntity<Object> response = new RestTemplate().exchange(url,HttpMethod.GET,requestUpdate, Object.class);
-		return response.getBody();
+		try {
+			HttpEntity<Object> requestUpdate = new HttpEntity<>(headers);
+			ResponseEntity<Object> response = new RestTemplate().exchange(url, HttpMethod.GET, requestUpdate, Object.class);
+			return response.getBody();
+		}
+		catch(HttpClientErrorException e){
+			return ErrorResponse.buildErrorResponse(e);
+		}
 	}
 
 }
