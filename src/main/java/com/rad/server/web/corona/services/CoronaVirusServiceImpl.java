@@ -31,9 +31,9 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
 
 
 
-	public Object getCoronaVirusData(String tenant, HttpHeaders headers)
+	public Object getCoronaVirusData( HttpHeaders headers)
 	{
-		return getForEntity(coronaVirusServiceUri+"/"+tenant);
+		return getForEntity(coronaVirusServiceUri);
 	}
 
 	@Override

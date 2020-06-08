@@ -4,7 +4,7 @@ import org.springframework.http.HttpHeaders;
 
 public interface CoronaVirusService
 {
-	Object getCoronaVirusData(String tenant, HttpHeaders headers);
+	Object getCoronaVirusData( HttpHeaders headers);
 
     Object getTotalsLatest(HttpHeaders headers);
 
