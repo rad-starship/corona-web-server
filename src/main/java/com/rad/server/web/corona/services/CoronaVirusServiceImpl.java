@@ -33,7 +33,7 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
 
 	public Object getCoronaVirusData(String tenant, HttpHeaders headers)
 	{
-		return getForEntity(coronaVirusServiceUri+"/"+tenant);
+		return getForEntity(coronaVirusServiceUri+"/"+tenant,headers);
 	}
 
 	@Override
@@ -43,17 +43,17 @@ public class CoronaVirusServiceImpl implements CoronaVirusService
 
 	@Override
 	public Object getTotalsDaily(String date, HttpHeaders headers) {
-		return getForEntity(totalDailyUri+"/?date="+date);
+		return getForEntity(totalDailyUri+"/?date="+date,headers);
 	}
 
 	@Override
 	public Object getCountriesLatest(HttpHeaders headers) {
-		return getForEntity(countryLatestUri);
+		return getForEntity(countryLatestUri,headers);
 	}
 
 	@Override
 	public Object getCountryDaily(long date, String countryName, HttpHeaders headers) {
-		return getForEntity(countryDailyUri+"/?date="+String.valueOf(date)+"&countryName="+countryName);
+		return getForEntity(countryDailyUri+"/?date="+String.valueOf(date)+"&countryName="+countryName,headers);
 	}
 
 	@SuppressWarnings("rawtypes")

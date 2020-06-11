@@ -24,6 +24,7 @@ public class MultitenantConfigResolver implements KeycloakConfigResolver {
         String realm = "None";
         String auth = request.getHeader("Authorization");
 
+
         if(auth!=null) {
             String jwt = auth.split(" ")[1];
             realm = getRealmFromJWT(jwt);
