@@ -137,11 +137,11 @@ public class CoronaWebServerControllers
 	}
 
 	
-	@GetMapping("/corona/{tenant}")
+	@GetMapping("/corona")
 	@ResponseBody
-	public Object getCoronaData(@RequestHeader HttpHeaders headers,@PathVariable String tenant)
+	public Object getCoronaData(@RequestHeader HttpHeaders headers)
 	{
-		return coronaVirusService.getCoronaVirusData(tenant,headers);
+		return coronaVirusService.getCoronaVirusData(headers);
 	}
 
 	@GetMapping("/totalsLatest")
