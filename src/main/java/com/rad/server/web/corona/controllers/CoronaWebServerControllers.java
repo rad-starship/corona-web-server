@@ -1,22 +1,17 @@
 package com.rad.server.web.corona.controllers;
 
-import org.keycloak.representations.AccessToken;
+import javax.validation.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import com.rad.server.web.corona.services.*;
-
-import javax.validation.Valid;
-import java.util.*;
-
-import java.util.Map;
 
 /**
  * @author raz_o
  */
 @Controller
-//@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class CoronaWebServerControllers
 {
 	@Autowired
