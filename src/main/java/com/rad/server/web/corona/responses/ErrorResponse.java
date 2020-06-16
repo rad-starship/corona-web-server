@@ -29,7 +29,7 @@ public class ErrorResponse implements Response {
         Map<String,String> error= new HashMap<>();
         error.put("Error",e.getResponseBodyAsString());
         if(e.getStatusCode().value() == 401){
-            error.put("Error","Unauthorized");
+            error.put("Error","Unauthorized: "+e.getResponseBodyAsString());
         }
         return new ResponseEntity<Object>(error,e.getStatusCode());
     }
