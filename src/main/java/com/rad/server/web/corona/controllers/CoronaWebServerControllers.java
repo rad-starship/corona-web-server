@@ -53,12 +53,6 @@ public class CoronaWebServerControllers
 		return nmsAccessService.getUsers(headers);
 	}
 
-	@GetMapping("/users/getToken")
-	@ResponseBody
-	public Object getUserToken(@RequestHeader HttpHeaders headers)
-	{
-		return nmsAccessService.getUserToken(headers);
-	}
 
 	@PostMapping("/users")
 	@ResponseBody
