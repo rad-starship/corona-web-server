@@ -43,7 +43,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 
 	public Object getSettings(HttpHeaders headers)
 	{
-		return getForEntity(nmsAccessServiceUri+"getSettings",headers);
+		return getForEntity(nmsAccessServiceUri+"settings",headers);
 	}
 
 	public Object getUserToken(HttpHeaders headers)
