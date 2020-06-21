@@ -60,7 +60,7 @@ public class CoronaWebServerControllers
 		return nmsAccessService.getUser(id,headers);
 	}
 
-	@GetMapping("/getSettings")
+	@GetMapping("/settings")
 	@ResponseBody
 	public Object getSettings(@RequestHeader HttpHeaders headers)
 	{
