@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 public interface NmsAccessService
 {
 	Object getUsers(HttpHeaders headers);
+	Object getUser(long id, HttpHeaders headers);
 	Object getUserToken(HttpHeaders headers);
 	Object getRoles(HttpHeaders headers);
 	Object getTenants(HttpHeaders headers);
@@ -25,6 +26,7 @@ public interface NmsAccessService
 	Object updateUser(Long id, Object user, HttpHeaders headers);
 	Object updateTenant(Long id, Object tenant, HttpHeaders headers);
 
+	Object getSettings(HttpHeaders headers);
 
     Object postSettings(Object settings, HttpHeaders headers);
 

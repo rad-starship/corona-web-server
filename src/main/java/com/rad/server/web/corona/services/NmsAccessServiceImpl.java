@@ -36,6 +36,15 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return getForEntity(usersServiceUri,headers);
 	}
 
+	public Object getUser(long id, HttpHeaders headers){
+		return getForEntity(usersServiceUri+"/"+id,headers);
+		//return id;
+	}
+
+	public Object getSettings(HttpHeaders headers)
+	{
+		return getForEntity(nmsAccessServiceUri+"getSettings",headers);
+	}
 
 	public Object getUserToken(HttpHeaders headers)
 	{

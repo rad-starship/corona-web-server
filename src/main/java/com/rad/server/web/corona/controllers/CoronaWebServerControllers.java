@@ -53,6 +53,19 @@ public class CoronaWebServerControllers
 		return nmsAccessService.getUsers(headers);
 	}
 
+	@GetMapping("/users/{id}")
+	@ResponseBody
+	public Object getUsers(@RequestHeader HttpHeaders headers,@PathVariable(value = "id") Long id)
+	{
+		return nmsAccessService.getUser(id,headers);
+	}
+
+	@GetMapping("/getSettings")
+	@ResponseBody
+	public Object getSettings(@RequestHeader HttpHeaders headers)
+	{
+		return nmsAccessService.getSettings(headers);
+	}
 
 	@PostMapping("/users")
 	@ResponseBody
