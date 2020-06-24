@@ -34,13 +34,26 @@ public class CoronaWebServerControllers
 	{
 		return nmsAccessService.logout(refreshToken, headers);
 	}
-	
-	@PostMapping("/settings")
+
+    @GetMapping("/settings")
+    @ResponseBody
+    public Object getSettings(@RequestHeader HttpHeaders headers)
+    {
+        return nmsAccessService.getSettings(headers);
+    }
+
+    @PostMapping("/settings")
 	@ResponseBody
 	public Object postSettings(@RequestHeader HttpHeaders headers, @RequestBody Object settings)
 	{
 		return nmsAccessService.postSettings(settings, headers);
 	}
+
+	@GetMapping("/sessions")
+    @ResponseBody
+    public Object getSessions(@RequestHeader HttpHeaders headers){
+	    return nmsAccessService.getSessions(headers);
+    }
 	
 	//***********************************************************************
 	//                          Users APIs
@@ -58,13 +71,6 @@ public class CoronaWebServerControllers
 	public Object getUsers(@RequestHeader HttpHeaders headers,@PathVariable(value = "id") Long id)
 	{
 		return nmsAccessService.getUser(id,headers);
-	}
-
-	@GetMapping("/settings")
-	@ResponseBody
-	public Object getSettings(@RequestHeader HttpHeaders headers)
-	{
-		return nmsAccessService.getSettings(headers);
 	}
 
 	@PostMapping("/users")

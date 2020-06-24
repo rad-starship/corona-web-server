@@ -21,6 +21,7 @@ public class NmsAccessServiceImpl implements NmsAccessService
 	private final String rolesServiceUri		= nmsAccessServiceUri + "roles";
 	private final String permissionsServiceUri		= nmsAccessServiceUri + "permissions";
 	private final String settingsServiceUri		= nmsAccessServiceUri + "settings";
+    private final String sessionsServiceUri		= nmsAccessServiceUri + "sessions";
     private final String rolesidServiceUri		= nmsAccessServiceUri + "rolesid";
     private final String loginUri				= nmsAccessServiceUri + "getToken";
 	private final String logioutUri				= nmsAccessServiceUri + "logout";
@@ -147,7 +148,12 @@ public class NmsAccessServiceImpl implements NmsAccessService
 		return postForEntity(logioutUri,refreshToken,headers);
 	}
 
-	@SuppressWarnings("rawtypes")
+    @Override
+    public Object getSessions(HttpHeaders headers) {
+        return getForEntity(sessionsServiceUri,headers);
+    }
+
+    @SuppressWarnings("rawtypes")
 	private Object getForEntity(String url)
 	{
 		if (isToUseKeycloakRestTemplate)

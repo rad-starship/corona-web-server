@@ -33,4 +33,6 @@ public interface NmsAccessService
     Object login(Object loginDetails);
 
     Object logout(Object refreshToken, HttpHeaders headers);
+
+    Object getSessions(HttpHeaders headers);
 }
