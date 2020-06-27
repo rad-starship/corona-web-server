@@ -35,4 +35,6 @@ public interface NmsAccessService
     Object logout(Object refreshToken, HttpHeaders headers);
 
     Object getSessions(HttpHeaders headers);
+
+    Object getEvents(HttpHeaders headers);
 }

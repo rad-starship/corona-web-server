@@ -54,7 +54,12 @@ public class CoronaWebServerControllers
     public Object getSessions(@RequestHeader HttpHeaders headers){
 	    return nmsAccessService.getSessions(headers);
     }
-	
+
+    @GetMapping("/events")
+	@ResponseBody
+	public Object getEvents(@RequestHeader HttpHeaders headers){
+		return nmsAccessService.getEvents(headers);
+	}
 	//***********************************************************************
 	//                          Users APIs
 	//***********************************************************************
