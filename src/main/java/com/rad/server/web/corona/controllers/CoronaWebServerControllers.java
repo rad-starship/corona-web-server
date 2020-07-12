@@ -177,6 +177,12 @@ public class CoronaWebServerControllers
 		return nmsAccessService.deleteTenant(id, headers);
 	}
 
+	@GetMapping("/tenants/tenantsForCorona")
+	@ResponseBody
+	public Object getTenantsForCorona(@RequestHeader HttpHeaders headers)
+	{
+		return nmsAccessService.getTenantsForCorona(headers);
+	}
 	//***********************************************************************
 	//                          Corona APIs
 	//***********************************************************************
@@ -194,14 +200,7 @@ public class CoronaWebServerControllers
 	{
 		return coronaVirusService.getTotalsLatest(headers);
 	}
-
-	@GetMapping("/tenants/tenantsForCorona")
-	@ResponseBody
-	public Object getTenantsForCorona(@RequestHeader HttpHeaders headers)
-	{
-		return nmsAccessService.getTenantsForCorona(headers);
-	}
-
+	
 	@GetMapping("/totalsDaily")
 	@ResponseBody
 	public Object getTotalsDaily(@RequestHeader HttpHeaders headers, @RequestParam("date") String date)
@@ -209,17 +208,5 @@ public class CoronaWebServerControllers
 		return coronaVirusService.getTotalsDaily(date, headers);
 	}
 
-	@GetMapping("/countriesLatest")
-	@ResponseBody
-	public Object getCountriesLatest(@RequestHeader HttpHeaders headers)
-	{
-		return coronaVirusService.getCountriesLatest(headers);
-	}
 
-	@GetMapping("/countryDaily")
-	@ResponseBody
-	public Object getCountryDaily(@RequestHeader HttpHeaders headers, @RequestParam("date") long date, @RequestParam("countryName") String countryName)
-	{
-		return coronaVirusService.getCountryDaily(date, countryName, headers);
-	}
 }
