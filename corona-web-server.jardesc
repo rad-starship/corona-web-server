@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="C:/Java/nms_ems/projects/access/rad-starship/corona-web-server/corona-web-server.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/corona-web-server/corona-web-server.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=corona-web-server/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.rad.server.web.corona{CoronaWebServerApplication.java[CoronaWebServerApplication" manifestLocation="/corona-web-server/MANIFEST.MF" manifestVersion="1.0" reuseManifest="false" saveManifest="true" usesManifest="true">
+        <sealing sealJar="true">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <folder path="/corona-web-server/src"/>
+        <javaElement handleIdentifier="=corona-web-server/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/"/>
+        <javaElement handleIdentifier="=corona-web-server/src\/main\/resources=/maven.pomderived=/true=/"/>
+    </selectedElements>
+</jardesc>

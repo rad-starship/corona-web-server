@@ -1,0 +1,1950 @@
+{
+	"info": {
+		"_postman_id": "74b294f2-f5de-4f96-bf2c-d79d2066ebbc",
+		"name": "CoronaView",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Keycloak (8080)",
+			"item": [
+				{
+					"name": "Acquire an access token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "admin-cli",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/realms/master/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "admin-cli",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3OGExMDIyOC1jMWU4LTQ2N2EtYThhMi1iNjFhZWJlNTAyY2QifQ.eyJleHAiOjE1ODU2NjY3NDMsImlhdCI6MTU4NTY2NDk0MywianRpIjoiOThkMDg3N2YtYWMxNC00ZTViLWI3YTMtNzViZmIxZGZiY2I0IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hdXRoL3JlYWxtcy9tYXN0ZXIiLCJzdWIiOiIxOWQ3N2EwMC0zNzg1LTQ3MGItYmM0ZS0wNTY5MTY2NzNjNmYiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoiYWRtaW4tY2xpIiwic2Vzc2lvbl9zdGF0ZSI6ImM5MmVmOTYxLTk2N2EtNGEyYS04OGYwLTg4ZTEyNWUzY2VmNyIsInNjb3BlIjoiZW1haWwgcHJvZmlsZSJ9.4_SLKgQ0TOGJiEb3R-1I1Vf4yyhUvBScH57ybQ9YgGo",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/realms/master/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "NMS Access (8081)",
+			"item": [
+				{
+					"name": "Get NMS-Access | Users",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1RzJkYWtqQ2g5cWtTSlRzX0xZMkpTalB6ZVpienhPUlJEbVRpdUNWNDdRIn0.eyJleHAiOjE1ODg1MTA5MTgsImlhdCI6MTU4ODUxMDYxOCwiYXV0aF90aW1lIjoxNTg4NTEwMTE3LCJqdGkiOiI4YWE4ZmMwZS02MmMwLTRjMDItODAxYS1mZjVkOGU3NmI0OTkiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvQWRtaW4iLCJhdWQiOlsiY29yb25hLXdlYiIsImFjY291bnQiXSwic3ViIjoiNWExYjU0MWUtNzc3YS00NzIxLTkyNGUtY2RlOTAzZWViYTAxIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY3VzdG9tZXItYXBwIiwic2Vzc2lvbl9zdGF0ZSI6ImNjOWM1ZjNlLTM5MzMtNGRhOC1iODBhLTQ1NjBlOGQ0ODBlMCIsImFjciI6IjAiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsicm9sZSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiY3VzdG9tZXItYXBwIjp7InJvbGVzIjpbImFkbWluIl19LCJjb3JvbmEtd2ViIjp7InJvbGVzIjpbImFkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX25hbWUiOiJ0ZXN0IiwicHJlZmVycmVkX3VzZXJuYW1lIjoidGVzdCJ9.Sa6BGRF6e_tqF9TigPFXC8ZJnAuvJRY9LogygJMxWDnSTnQga1kSf72j_Lp6mJT44FRUDqFu8vxS-4Ha4yjba6xOHhhn-O7mD9FQBDCsBz-d7z72Xd61SQuBM8VnSh9EM73raniLZRAdQn9WSsR3oHXeMfoXrchDJ_eC5Rz16GRRqRqWUQ-bOkBrcC_QBczQqndDS7dmTn9Tf84LLnVoImhK9h73jf1PqEzvPNOCoAOwkIzhTT5IvVzyPTJpiOK5_RG88Tv7f8FBEVRrF6KepSAsaH2diVNlGTbSdcdflfZRyL20_cQbNWzbs1xomwZcxt4yIccC5uemwmyXUSGUFg",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8084/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get NMS-Access | Roles",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1RzJkYWtqQ2g5cWtTSlRzX0xZMkpTalB6ZVpienhPUlJEbVRpdUNWNDdRIn0.eyJleHAiOjE1ODg1MTA5MzUsImlhdCI6MTU4ODUxMDYzNSwiYXV0aF90aW1lIjoxNTg4NTEwMTE3LCJqdGkiOiIwNGJkMTgyNS04ZWY5LTRkZWUtYTBkZC1hMTkwYzdjMzgxMDgiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvQWRtaW4iLCJhdWQiOlsiY29yb25hLXdlYiIsImFjY291bnQiXSwic3ViIjoiNWExYjU0MWUtNzc3YS00NzIxLTkyNGUtY2RlOTAzZWViYTAxIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY3VzdG9tZXItYXBwIiwic2Vzc2lvbl9zdGF0ZSI6ImNjOWM1ZjNlLTM5MzMtNGRhOC1iODBhLTQ1NjBlOGQ0ODBlMCIsImFjciI6IjAiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsicm9sZSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiY3VzdG9tZXItYXBwIjp7InJvbGVzIjpbImFkbWluIl19LCJjb3JvbmEtd2ViIjp7InJvbGVzIjpbImFkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX25hbWUiOiJ0ZXN0IiwicHJlZmVycmVkX3VzZXJuYW1lIjoidGVzdCJ9.Yhgm05NdH_jEXb7PreMkCyRzoWtpjXE0amJERGbrYOmsDoUT3hM7hXGqGZLX0Gxs3zOir6u9UbrCDgs38JMWZdf517RM-k-xwl10lYnvmjQT3JtcgAZGQvMylenMIDqGbwIg9d_zh1v_ZNqQgaACI9pL6wPUqxQ76b9xrNBTcchhacbaz2KEj-yMvfJF5idy7lpjNz8PW9droV90ay_igqq2uTP7DbOLkTpuJJdrcLxTtXTKsAhcpYn_tsZJVEJ7r7l8Ugs6EKTWtyNeL3T0iSbE2pXR60Xwq-wyaW5z_OhiFn87IWc_2bUDu3pwTidNErYiBKfBAcPvumwDT6kJ0Q",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8084/roles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get NMS-Access | Tenants",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1RzJkYWtqQ2g5cWtTSlRzX0xZMkpTalB6ZVpienhPUlJEbVRpdUNWNDdRIn0.eyJleHAiOjE1ODU3MzA1ODcsImlhdCI6MTU4NTczMDI4NywiYXV0aF90aW1lIjoxNTg1NzMwMjg2LCJqdGkiOiIwMzc1ODM1OS1hZTczLTQyYmEtYjk0YS1iODg1YjlkZjFmZGYiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvQWRtaW4iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYjI0ODI4YWMtMDVmOC00NDBiLWI4ZWMtMWEwNzMyM2JiNTNkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY3VzdG9tZXItYXBwIiwic2Vzc2lvbl9zdGF0ZSI6Ijg0YmM0NWUzLTAxYTYtNDk1Ny04NmNjLTZiZTc4N2Q5ZDE4MSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsInVzZXIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX25hbWUiOiJ0ZXN0dXNlciIsInByZWZlcnJlZF91c2VybmFtZSI6InRlc3R1c2VyIn0.CGt2yLIHarzYHrm73N2lB752EoQB4YTAk7D1yL9GBRYQazGxRUpdWsYgYXEvNMbG2K4gK3BqEqN0hudJCLKT0beas9VtYVUMPhnHJ-6NfHgjKVBreYvurQqaxD1u07InwWPfeXmcsV2boh0lQMwdU93_GhGcYm8s1f4-pfkFxsQpKX5q-m7Vw9yXN1kRjPjyTiYbYEL18L3g6XFmKxsonFJp0x_I_qlp3xBCFcMLmJQZsV2Bgt6DP_Ia6q8qj0ClI77Si6N8R0zBFG5IbjIc7K2HMJX5ok1YIve650DX57LF6BHRMc5r7AfM5RpurxzFsBuLabNvCLT8rn91QSJAag",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/tenants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"tenants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create NMS-Access | User",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1RzJkYWtqQ2g5cWtTSlRzX0xZMkpTalB6ZVpienhPUlJEbVRpdUNWNDdRIn0.eyJleHAiOjE1ODU3MzA1ODcsImlhdCI6MTU4NTczMDI4NywiYXV0aF90aW1lIjoxNTg1NzMwMjg2LCJqdGkiOiIwMzc1ODM1OS1hZTczLTQyYmEtYjk0YS1iODg1YjlkZjFmZGYiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvQWRtaW4iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYjI0ODI4YWMtMDVmOC00NDBiLWI4ZWMtMWEwNzMyM2JiNTNkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY3VzdG9tZXItYXBwIiwic2Vzc2lvbl9zdGF0ZSI6Ijg0YmM0NWUzLTAxYTYtNDk1Ny04NmNjLTZiZTc4N2Q5ZDE4MSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsInVzZXIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX25hbWUiOiJ0ZXN0dXNlciIsInByZWZlcnJlZF91c2VybmFtZSI6InRlc3R1c2VyIn0.CGt2yLIHarzYHrm73N2lB752EoQB4YTAk7D1yL9GBRYQazGxRUpdWsYgYXEvNMbG2K4gK3BqEqN0hudJCLKT0beas9VtYVUMPhnHJ-6NfHgjKVBreYvurQqaxD1u07InwWPfeXmcsV2boh0lQMwdU93_GhGcYm8s1f4-pfkFxsQpKX5q-m7Vw9yXN1kRjPjyTiYbYEL18L3g6XFmKxsonFJp0x_I_qlp3xBCFcMLmJQZsV2Bgt6DP_Ia6q8qj0ClI77Si6N8R0zBFG5IbjIc7K2HMJX5ok1YIve650DX57LF6BHRMc5r7AfM5RpurxzFsBuLabNvCLT8rn91QSJAag",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"raz222\",\n\t\"email\": \"raz222@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create NMS-Access | Role",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1RzJkYWtqQ2g5cWtTSlRzX0xZMkpTalB6ZVpienhPUlJEbVRpdUNWNDdRIn0.eyJleHAiOjE1ODU3MzA1ODcsImlhdCI6MTU4NTczMDI4NywiYXV0aF90aW1lIjoxNTg1NzMwMjg2LCJqdGkiOiIwMzc1ODM1OS1hZTczLTQyYmEtYjk0YS1iODg1YjlkZjFmZGYiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvQWRtaW4iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYjI0ODI4YWMtMDVmOC00NDBiLWI4ZWMtMWEwNzMyM2JiNTNkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY3VzdG9tZXItYXBwIiwic2Vzc2lvbl9zdGF0ZSI6Ijg0YmM0NWUzLTAxYTYtNDk1Ny04NmNjLTZiZTc4N2Q5ZDE4MSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsInVzZXIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX25hbWUiOiJ0ZXN0dXNlciIsInByZWZlcnJlZF91c2VybmFtZSI6InRlc3R1c2VyIn0.CGt2yLIHarzYHrm73N2lB752EoQB4YTAk7D1yL9GBRYQazGxRUpdWsYgYXEvNMbG2K4gK3BqEqN0hudJCLKT0beas9VtYVUMPhnHJ-6NfHgjKVBreYvurQqaxD1u07InwWPfeXmcsV2boh0lQMwdU93_GhGcYm8s1f4-pfkFxsQpKX5q-m7Vw9yXN1kRjPjyTiYbYEL18L3g6XFmKxsonFJp0x_I_qlp3xBCFcMLmJQZsV2Bgt6DP_Ia6q8qj0ClI77Si6N8R0zBFG5IbjIc7K2HMJX5ok1YIve650DX57LF6BHRMc5r7AfM5RpurxzFsBuLabNvCLT8rn91QSJAag",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"admin2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/roles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create NMS-Access | Tenant",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1RzJkYWtqQ2g5cWtTSlRzX0xZMkpTalB6ZVpienhPUlJEbVRpdUNWNDdRIn0.eyJleHAiOjE1ODU3MzA1ODcsImlhdCI6MTU4NTczMDI4NywiYXV0aF90aW1lIjoxNTg1NzMwMjg2LCJqdGkiOiIwMzc1ODM1OS1hZTczLTQyYmEtYjk0YS1iODg1YjlkZjFmZGYiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvQWRtaW4iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYjI0ODI4YWMtMDVmOC00NDBiLWI4ZWMtMWEwNzMyM2JiNTNkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY3VzdG9tZXItYXBwIiwic2Vzc2lvbl9zdGF0ZSI6Ijg0YmM0NWUzLTAxYTYtNDk1Ny04NmNjLTZiZTc4N2Q5ZDE4MSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsInVzZXIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX25hbWUiOiJ0ZXN0dXNlciIsInByZWZlcnJlZF91c2VybmFtZSI6InRlc3R1c2VyIn0.CGt2yLIHarzYHrm73N2lB752EoQB4YTAk7D1yL9GBRYQazGxRUpdWsYgYXEvNMbG2K4gK3BqEqN0hudJCLKT0beas9VtYVUMPhnHJ-6NfHgjKVBreYvurQqaxD1u07InwWPfeXmcsV2boh0lQMwdU93_GhGcYm8s1f4-pfkFxsQpKX5q-m7Vw9yXN1kRjPjyTiYbYEL18L3g6XFmKxsonFJp0x_I_qlp3xBCFcMLmJQZsV2Bgt6DP_Ia6q8qj0ClI77Si6N8R0zBFG5IbjIc7K2HMJX5ok1YIve650DX57LF6BHRMc5r7AfM5RpurxzFsBuLabNvCLT8rn91QSJAag",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"tenantTest\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/tenants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"tenants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Settings",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1RzJkYWtqQ2g5cWtTSlRzX0xZMkpTalB6ZVpienhPUlJEbVRpdUNWNDdRIn0.eyJleHAiOjE1ODU3MzA1ODcsImlhdCI6MTU4NTczMDI4NywiYXV0aF90aW1lIjoxNTg1NzMwMjg2LCJqdGkiOiIwMzc1ODM1OS1hZTczLTQyYmEtYjk0YS1iODg1YjlkZjFmZGYiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvQWRtaW4iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYjI0ODI4YWMtMDVmOC00NDBiLWI4ZWMtMWEwNzMyM2JiNTNkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY3VzdG9tZXItYXBwIiwic2Vzc2lvbl9zdGF0ZSI6Ijg0YmM0NWUzLTAxYTYtNDk1Ny04NmNjLTZiZTc4N2Q5ZDE4MSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsInVzZXIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX25hbWUiOiJ0ZXN0dXNlciIsInByZWZlcnJlZF91c2VybmFtZSI6InRlc3R1c2VyIn0.CGt2yLIHarzYHrm73N2lB752EoQB4YTAk7D1yL9GBRYQazGxRUpdWsYgYXEvNMbG2K4gK3BqEqN0hudJCLKT0beas9VtYVUMPhnHJ-6NfHgjKVBreYvurQqaxD1u07InwWPfeXmcsV2boh0lQMwdU93_GhGcYm8s1f4-pfkFxsQpKX5q-m7Vw9yXN1kRjPjyTiYbYEL18L3g6XFmKxsonFJp0x_I_qlp3xBCFcMLmJQZsV2Bgt6DP_Ia6q8qj0ClI77Si6N8R0zBFG5IbjIc7K2HMJX5ok1YIve650DX57LF6BHRMc5r7AfM5RpurxzFsBuLabNvCLT8rn91QSJAag",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"authentication\": {\n        \"token\": {\n        \t\"ssoSessionIdle\": 30,\n        \t\"ssoSessionMax\": 600\n        },\n        \"passwordPolicy\": {\n        \t\"expirePassword\": 365,\n        \t\"minimumLength\": 8,\n        \t\"notRecentlyUsed\": 3,\n        \t\"digits\": 1,\n        \t\"notUsername\": true\n        },\n        \"socialLogin\": {\n        \t\"identityProvider\": \"google\"\n        }\n    },\n    \"authorization\": {\n    \t\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/settings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"settings"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f3dd14f0-0554-47a5-9b2a-fe6e18d17c18",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a1d0c5b-5128-47b9-9cd2-76e439df407e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Covid-19 Health (8082)",
+			"item": [
+				{
+					"name": "Get Health | Corona | getTotalsLatest",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1RzJkYWtqQ2g5cWtTSlRzX0xZMkpTalB6ZVpienhPUlJEbVRpdUNWNDdRIn0.eyJleHAiOjE1ODg1MTcyMDUsImlhdCI6MTU4ODUxNjkwNSwiYXV0aF90aW1lIjoxNTg4NTE2OTA0LCJqdGkiOiJhY2FjMDMyZS00ZTI4LTQwYmMtOTViNS1jMWJjYzRhOTNlMWUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvQWRtaW4iLCJhdWQiOlsiY29yb25hLXdlYi1jbGllbnQiLCJhY2NvdW50Il0sInN1YiI6IjVhMWI1NDFlLTc3N2EtNDcyMS05MjRlLWNkZTkwM2VlYmEwMSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImNvcm9uYS13ZWItc2VydmVyIiwic2Vzc2lvbl9zdGF0ZSI6ImY0OTI3MTIyLTY0MDItNDRlMy1hZmUwLThiODE0OTE5MTljOCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsicm9sZSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiY29yb25hLXdlYi1jbGllbnQiOnsicm9sZXMiOlsiYWRtaW4iXX0sImNvcm9uYS13ZWItc2VydmVyIjp7InJvbGVzIjpbImFkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX25hbWUiOiJ0ZXN0IiwicHJlZmVycmVkX3VzZXJuYW1lIjoidGVzdCJ9.dPFHwHzt-_dG_f8RfJhNa-GMtcBduF0nsVUrPqN2aBluXI81P7_fUndunjvACoDc9QrwEMp-NejC6efauC__CPSAqoGEIRn9ynGpyTnkDZNP_X-JdcDthchtCF7UBwmHZxpA1zMOSzqAER6mUCEes9QB7Q-LkAhC3kKjtg2JPK6W1zsHMYvAngbeqZh2NTTAoJ81l6kzTPe3dITS64rlBZiLiXjTVGlIkbIY0acAOfUkzH3DGRD_jHWj2tqwn-NoMQbl0pCQSCbHNW7WUa05JmvbFJR78OOeY8Y0X6j8j3T2zn9V1-LUbAG8gITSC5VYgSwuZoV_O9FqgPvGyd-Nqw",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8085/totalsLatest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"totalsLatest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Health | Corona | getTotalsDaily",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1RzJkYWtqQ2g5cWtTSlRzX0xZMkpTalB6ZVpienhPUlJEbVRpdUNWNDdRIn0.eyJleHAiOjE1ODc5NzQ0NjgsImlhdCI6MTU4Nzk3NDE2OCwiYXV0aF90aW1lIjoxNTg3OTc0MTY2LCJqdGkiOiJjNTlhZjI3OC0xOTM0LTRmN2ItODIyNC00Nzk1NTc4ZGQ5ZmUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvQWRtaW4iLCJhdWQiOlsiY29yb25hLXdlYiIsImFjY291bnQiXSwic3ViIjoiNWExYjU0MWUtNzc3YS00NzIxLTkyNGUtY2RlOTAzZWViYTAxIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY3VzdG9tZXItYXBwIiwic2Vzc2lvbl9zdGF0ZSI6Ijg0ZWI0ZTM3LTQzNDktNGE1Ny04Y2YxLTA4MzYyYTRkYjIxNSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsicm9sZSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiY3VzdG9tZXItYXBwIjp7InJvbGVzIjpbImFkbWluIl19LCJjb3JvbmEtd2ViIjp7InJvbGVzIjpbImFkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX25hbWUiOiJ0ZXN0IiwicHJlZmVycmVkX3VzZXJuYW1lIjoidGVzdCJ9.X2MK3acNGlvLz-GOYpz5iRDdJaXlYUqWrj2H4oIJ1NKzL5k7FenpbnbKBubB2gg2pk8kS2GuoT9qDadYTvI-_qhYoBepnbYi08TaxkzqBfg7nW5q3-Xpiw2ZzCoi3vcPZimViUgLlMDjL05DlQ6DaTBEalXwZyYGxxFLD7B4lwpkzOea6dZopP2OZFTj17UtvwR5tH2_7lStG_WzaVcAhrTT_njUZKRxxSja7qNELKVhwi9XBd1H4Bi3WXh3xCA2YXYfmTlc5l41Z0sh19li0rS2C4VTYtDBgbafVJED-oHsIPHWoyrFT3X1HawwMVOH_1ETkylT_8J03hf8iQl7XA",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8085/totalsDaily?date=1588414434000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"totalsDaily"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "1588414434000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Health | Corona | getCountriesLatest",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1RzJkYWtqQ2g5cWtTSlRzX0xZMkpTalB6ZVpienhPUlJEbVRpdUNWNDdRIn0.eyJleHAiOjE1ODg1MTcyNDAsImlhdCI6MTU4ODUxNjk0MCwiYXV0aF90aW1lIjoxNTg4NTE2OTA0LCJqdGkiOiI5MWUwMDg1OC03M2UzLTQ2NDctYWYyYS03ODY5MTE3ZWZhNTkiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvQWRtaW4iLCJhdWQiOlsiY29yb25hLXdlYi1jbGllbnQiLCJhY2NvdW50Il0sInN1YiI6IjVhMWI1NDFlLTc3N2EtNDcyMS05MjRlLWNkZTkwM2VlYmEwMSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImNvcm9uYS13ZWItc2VydmVyIiwic2Vzc2lvbl9zdGF0ZSI6ImY0OTI3MTIyLTY0MDItNDRlMy1hZmUwLThiODE0OTE5MTljOCIsImFjciI6IjAiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsicm9sZSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiY29yb25hLXdlYi1jbGllbnQiOnsicm9sZXMiOlsiYWRtaW4iXX0sImNvcm9uYS13ZWItc2VydmVyIjp7InJvbGVzIjpbImFkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX25hbWUiOiJ0ZXN0IiwicHJlZmVycmVkX3VzZXJuYW1lIjoidGVzdCJ9.LmEisUZpSFFHxUCOLZaJRkEwqJ8MVxTMRme_AhS-XYrlKDI-iOUIJUcEJjYeOYlc3lVqKUqAv5q9Az1pFjt54rJPlp80UPKzE1lTL7yUsxF6Si7v3eqy0wBvygfeT6JQ-A5X4Cwj-hCDcquszq3a4syNNC-oV3gk7l0N9Mv0wKs-zlcrpn8ihErCO6p-d7ePIILLsH-gVEWhrhzJ9mw2ZRW-juelGJEVIjXZb5oHJ3vPTPO-mLTD7f_NMAmHohIZWRCBrwXupIv__ZZRjZxIRsN7mHIM-ueCOeGzSCAG-oZUbrEA5JtgmC-0MavolrAh-PYzHYHMGy35VxWQikNorA",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8085/countriesLatest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"countriesLatest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Health | Corona | getCountryDaily",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI1RzJkYWtqQ2g5cWtTSlRzX0xZMkpTalB6ZVpienhPUlJEbVRpdUNWNDdRIn0.eyJleHAiOjE1ODc5NzQ0NjgsImlhdCI6MTU4Nzk3NDE2OCwiYXV0aF90aW1lIjoxNTg3OTc0MTY2LCJqdGkiOiJjNTlhZjI3OC0xOTM0LTRmN2ItODIyNC00Nzk1NTc4ZGQ5ZmUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXV0aC9yZWFsbXMvQWRtaW4iLCJhdWQiOlsiY29yb25hLXdlYiIsImFjY291bnQiXSwic3ViIjoiNWExYjU0MWUtNzc3YS00NzIxLTkyNGUtY2RlOTAzZWViYTAxIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY3VzdG9tZXItYXBwIiwic2Vzc2lvbl9zdGF0ZSI6Ijg0ZWI0ZTM3LTQzNDktNGE1Ny04Y2YxLTA4MzYyYTRkYjIxNSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsicm9sZSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiY3VzdG9tZXItYXBwIjp7InJvbGVzIjpbImFkbWluIl19LCJjb3JvbmEtd2ViIjp7InJvbGVzIjpbImFkbWluIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX25hbWUiOiJ0ZXN0IiwicHJlZmVycmVkX3VzZXJuYW1lIjoidGVzdCJ9.X2MK3acNGlvLz-GOYpz5iRDdJaXlYUqWrj2H4oIJ1NKzL5k7FenpbnbKBubB2gg2pk8kS2GuoT9qDadYTvI-_qhYoBepnbYi08TaxkzqBfg7nW5q3-Xpiw2ZzCoi3vcPZimViUgLlMDjL05DlQ6DaTBEalXwZyYGxxFLD7B4lwpkzOea6dZopP2OZFTj17UtvwR5tH2_7lStG_WzaVcAhrTT_njUZKRxxSja7qNELKVhwi9XBd1H4Bi3WXh3xCA2YXYfmTlc5l41Z0sh19li0rS2C4VTYtDBgbafVJED-oHsIPHWoyrFT3X1HawwMVOH_1ETkylT_8J03hf8iQl7XA",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8085/countryDaily?date=1588414434000&countryName=USA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"countryDaily"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "1588414434000"
+								},
+								{
+									"key": "countryName",
+									"value": "USA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ajayakv getListOfCountries",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-RapidAPI-Host",
+								"value": "ajayakv-rest-countries-v1.p.rapidapi.com",
+								"type": "text"
+							},
+							{
+								"key": "X-RapidAPI-Key",
+								"value": "ebfe2c57a8msha005ee72e713c84p19ce3ejsn6f034987944d",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://ajayakv-rest-countries-v1.p.rapidapi.com/rest/v1/all",
+							"protocol": "https",
+							"host": [
+								"ajayakv-rest-countries-v1",
+								"p",
+								"rapidapi",
+								"com"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Covid-19 getListOfCountries",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-RapidAPI-Host",
+								"type": "text",
+								"value": "covid-19-data.p.rapidapi.com"
+							},
+							{
+								"key": "X-RapidAPI-Key",
+								"type": "text",
+								"value": "ebfe2c57a8msha005ee72e713c84p19ce3ejsn6f034987944d"
+							}
+						],
+						"url": {
+							"raw": "https://covid-19-data.p.rapidapi.com/help/countries",
+							"protocol": "https",
+							"host": [
+								"covid-19-data",
+								"p",
+								"rapidapi",
+								"com"
+							],
+							"path": [
+								"help",
+								"countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Covid-19 country/all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-RapidAPI-Host",
+								"value": "covid-19-data.p.rapidapi.com",
+								"type": "text"
+							},
+							{
+								"key": "X-RapidAPI-Key",
+								"value": "10e0755bcfmsh70fb720b18c677cp1b66efjsn8136ec80a4cc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://covid-19-data.p.rapidapi.com/country/all",
+							"protocol": "https",
+							"host": [
+								"covid-19-data",
+								"p",
+								"rapidapi",
+								"com"
+							],
+							"path": [
+								"country",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Covid-19 getLatestTotals",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-RapidAPI-Host",
+								"type": "text",
+								"value": "covid-19-data.p.rapidapi.com"
+							},
+							{
+								"key": "X-RapidAPI-Key",
+								"type": "text",
+								"value": "ebfe2c57a8msha005ee72e713c84p19ce3ejsn6f034987944d"
+							}
+						],
+						"url": {
+							"raw": "https://covid-19-data.p.rapidapi.com/totals",
+							"protocol": "https",
+							"host": [
+								"covid-19-data",
+								"p",
+								"rapidapi",
+								"com"
+							],
+							"path": [
+								"totals"
+							]
+						},
+						"description": "Get latest data for whole world.\r\n\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Covid-19 getDailyReportTotals",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-RapidAPI-Host",
+								"type": "text",
+								"value": "covid-19-data.p.rapidapi.com"
+							},
+							{
+								"key": "X-RapidAPI-Key",
+								"type": "text",
+								"value": "ebfe2c57a8msha005ee72e713c84p19ce3ejsn6f034987944d"
+							}
+						],
+						"url": {
+							"raw": "https://covid-19-data.p.rapidapi.com/report/totals?date-format=YYYY-MM-DD&format=json&date=2020-05-02",
+							"protocol": "https",
+							"host": [
+								"covid-19-data",
+								"p",
+								"rapidapi",
+								"com"
+							],
+							"path": [
+								"report",
+								"totals"
+							],
+							"query": [
+								{
+									"key": "date-format",
+									"value": "YYYY-MM-DD"
+								},
+								{
+									"key": "format",
+									"value": "json"
+								},
+								{
+									"key": "date",
+									"value": "2020-05-02"
+								}
+							]
+						},
+						"description": "Get daily report data for the whole world. Date format is by ISO 8601 standard, but you can provide different format with date-format parameter.\r\n\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Covid-19 getDailyReportByCountryName",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-RapidAPI-Host",
+								"type": "text",
+								"value": "covid-19-data.p.rapidapi.com"
+							},
+							{
+								"key": "X-RapidAPI-Key",
+								"type": "text",
+								"value": "ebfe2c57a8msha005ee72e713c84p19ce3ejsn6f034987944d"
+							}
+						],
+						"url": {
+							"raw": "https://covid-19-data.p.rapidapi.com/report/country/name?date-format=YYYY-MM-DD&format=json&date=2020-04-01&name=USA",
+							"protocol": "https",
+							"host": [
+								"covid-19-data",
+								"p",
+								"rapidapi",
+								"com"
+							],
+							"path": [
+								"report",
+								"country",
+								"name"
+							],
+							"query": [
+								{
+									"key": "date-format",
+									"value": "YYYY-MM-DD"
+								},
+								{
+									"key": "format",
+									"value": "json"
+								},
+								{
+									"key": "date",
+									"value": "2020-04-01"
+								},
+								{
+									"key": "name",
+									"value": "USA"
+								}
+							]
+						},
+						"description": "Get a daily report for a specific country by country name. Parameters name and date are mandatory. Date format is by ISO 8601 standard, but you can provide different format with\r\n\r\n"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Corona Web Server (8083)",
+			"item": [
+				{
+					"name": "Management",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c68d2dc0-f790-4851-896d-2eaa8bda4f05",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"token\", jsonData.access_token);\r",
+											"postman.setGlobalVariable(\"token\", jsonData.access_token);\r",
+											"pm.environment.set(\"token\", jsonData.access_token);\r",
+											"\r",
+											"postman.setEnvironmentVariable(\"refresh\", jsonData.refresh_token);\r",
+											"postman.setGlobalVariable(\"refresh\", jsonData.refresh_token);\r",
+											"pm.environment.set(\"refresh\", jsonData.refresh_token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\",\n    \"otp\": \"admin\",\n    \"tenant\": \"Admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8083/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "259e9b4d-5c97-4d05-b241-8b12d7622e2e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"refreshToken\": \"{{refresh}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8083/logout",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Settings | Update",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "31dd7599-2bf6-4d1a-b993-ac7cea18ad7a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"authentication\": {\r\n\t\t\"token\": {\r\n\t\t\t\"ssoSessionIdle\": 30,\r\n\t\t\t\"ssoSessionMax\": 600,\r\n\t\t\t\"offlineSessionIdle\": 1500,\r\n\t\t\t\"accessTokenLifespan\": 20\r\n\t\t},\r\n\t\t\"passwordPolicy\": {\r\n\t\t\t\"expirePassword\": 365,\r\n\t\t\t\"minimumLength\": 8,\r\n\t\t\t\"notRecentlyUsed\": 3,\r\n\t\t\t\"digits\": 1,\r\n\t\t\t\"notUsername\": true\r\n\t\t},\r\n\t\t\"otpPolicy\": {\r\n\t\t\t\"enabled\": false,\r\n\t\t\t\"optType\": \"Time Based\",\r\n\t\t\t\"numberOfDigits\": 8,\r\n\t\t\t\"optTokenPeriod\": 30\r\n\t\t},\r\n\t\t\"socialLogin\": {\r\n\t\t\t\"identityProvider\": \"None\"\r\n\t\t}\r\n\t},\r\n\t\"authorization\": {},\r\n\t\"events\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8083/settings",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"settings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Settings | Get",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9410642c-be49-4cd9-b685-8bc5efa8d161",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"refreshToken\": \"{{refresh}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8083/settings",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"settings"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Tenants",
+					"item": [
+						{
+							"name": "Tenants | Get",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8083/tenants",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"tenants"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tenants | Create",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"EuroAsis\",\n\t\"continents\": [\n\t\t\"Asia\",\n\t\t\"Europe\"\n\t]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8083/tenants",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"tenants"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tenants | Update",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"EuroAsia\",\n    \"continents\": [\n        \"Asia\",\n        \"Europe\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8083/tenants/30",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"tenants",
+										"30"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tenants | Delete",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"web-tenant\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8083/tenants",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"tenants"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Roles",
+					"item": [
+						{
+							"name": "Roles | Get",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8083/roles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Roles | Permissions | Get",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8083/permissions",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"permissions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Roles | Create",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Region-Israel\",\n    \"kcId\": 0,\n    \"permissions\": [\n        \"user_write\",\n        \"user_read\",\n        \"role_write\",\n        \"role_read\",\n        \"tenant_write\",\n        \"tenant_read\",\n        \"corona_read\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8083/roles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Roles | Update",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman."
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 40,\n    \"name\": \"Region-Israel222\",\n    \"permissions\": [\n        \"user_write\",\n        \"user_read\",\n        \"role_write\",\n        \"role_read\",\n        \"tenant_write\",\n        \"tenant_read\",\n        \"corona_read\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8083/roles/40",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"roles",
+										"40"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Roles | Delete by Id",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman."
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Region-Israel\",\n    \"permissions\": [\n        \"user_write\",\n        \"user_read\",\n        \"role_write\",\n        \"role_read\",\n        \"tenant_write\",\n        \"tenant_read\",\n        \"corona_read\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8083/rolesid/40",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"rolesid",
+										"40"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Roles | Delete by name",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}",
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman."
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Region-Israel\",\n    \"permissions\": [\n        \"user_write\",\n        \"user_read\",\n        \"role_write\",\n        \"role_read\",\n        \"tenant_write\",\n        \"tenant_read\",\n        \"corona_read\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8083/roles/Region-Israel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"roles",
+										"Region-Israel"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Users | Get all",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8083/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Users | Create",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"Raz\",\n    \"lastName\": \"Oz\",\n    \"userName\": \"razoz\",\n    \"email\": \"raz_o@rad.com\",\n    \"password\": \"q12345678\",\n    \"roleID\": 16,\n    \"tenantsID\": [\n        1,\n        2\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8083/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Users | Update",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n        \"id\": 20,\r\n        \"firstName\": \"america User 33\",\r\n        \"lastName\": \"americaUser\",\r\n        \"email\": \"americauser@domain.com\",\r\n        \"userName\": \"americaUser\",\r\n        \"password\": \"asdasdasd2e123qwe23123\",\r\n        \"roleID\": 17,\r\n        \"tenantsID\": [\r\n            2\r\n        ]\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8083/users/20",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"users",
+										"20"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Users | Delete",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8083/users/31",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"users",
+										"31"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Corona Data",
+					"item": [
+						{
+							"name": "Corona | Data",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8083/corona",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"corona"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Corona | Totals Latest",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8083/totalsLatest",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"totalsLatest"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Corona | Totals Daily",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8083/totalsDaily?date=1588414434000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"totalsDaily"
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "1588414434000"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Corona | Countries Latest",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8083/countriesLatest",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"countriesLatest"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Corona | Country Daily",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8083/countryDaily?date=1588414434000&countryName=USA",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8083",
+									"path": [
+										"countryDaily"
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "1588414434000"
+										},
+										{
+											"key": "countryName",
+											"value": "USA"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "80cb9cd4-2890-460e-adbe-4a5af622b93f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "48f06ca2-00b3-4999-842b-e387a46d0ce1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
